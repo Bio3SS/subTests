@@ -20,7 +20,7 @@ include stuff.mk
 
 ## Submodules
 
-Sources += material
+Sources += material Evaluation_materials
 
 material:
 	git submodule add git@github.com:Bio3SS/Evaluation_materials.git $@
@@ -29,8 +29,8 @@ Sources += makestuff
 makestuff:
 	git submodule add git@github.com:dushoff/$@.git
 
-	git submodule deinit Evaluation_materials
-		git rm Evaluation_materials
+	# git submodule deinit Evaluation_materials
+		# git rm Evaluation_materials
 
 
 ##################################################################
