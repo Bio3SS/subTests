@@ -14,6 +14,15 @@ target pngtarget pdftarget vtarget acrtarget: final.orders
 
 ######################################################################
 
+# Crib
+
+Crib = ~/git/Bio3SS_content
+
+%.pl:
+	$(CP) $(Crib)/$@ .
+
+######################################################################
+
 # make files
 
 Sources = Makefile .gitignore README.md stuff.mk LICENSE.md
@@ -29,6 +38,7 @@ Sources += material
 material:
 	git submodule add git@github.com:Bio3SS/Evaluation_materials.git $@
 
+Makefile: makestuff
 Sources += makestuff
 makestuff:
 	git submodule add git@github.com:dushoff/$@.git
@@ -122,10 +132,16 @@ midterm2.%.order: midterm2.skeleton scramble.pl
 final.%.order: final.skeleton scramble.pl
 	$(PUSHSTAR)
 
+.PRECIOUS: %.orders
 %.orders: %.1.order %.2.order %.3.order %.4.order %.5.order orders.pl
 	$(PUSH)
 
 final.orders:
+
+# Test key
+.PRECIOUS: %.ssv
+%.ssv: %.test key.pl
+	$(PUSH)
 
 ######################################################################
 
