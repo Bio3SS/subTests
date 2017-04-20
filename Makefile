@@ -25,8 +25,8 @@ Crib = ~/git/Bio3SS_content
 
 # make files
 
-Sources = Makefile .gitignore README.md stuff.mk LICENSE.md
-include stuff.mk
+Sources = Makefile .gitignore README.md submodules.mk LICENSE.md
+include submodules.mk
 -include $(ms)/perl.def
 
 ##################################################################
@@ -35,19 +35,12 @@ include stuff.mk
 
 Sources += material
 
-material:
-	git submodule init $@
-	git submodule update $@
+material/Makefile: %/Makefile:
+	git submodule init $*
+	git submodule update $*
 
-material/%: material
-	$(makethere)
-
-Makefile: makestuff
-Sources += makestuff
-
-makestuff:
-	git submodule init $@
-	git submodule update $@
+material/%: material/Makefile
+	cd material && $(MAKE) $*
 
 ##################################################################
 
