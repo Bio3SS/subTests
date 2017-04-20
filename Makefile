@@ -36,7 +36,11 @@ include stuff.mk
 Sources += material
 
 material:
-	git submodule add git@github.com:Bio3SS/Evaluation_materials.git $@
+	git submodule init $@
+	git submodule update $@
+
+material/%: material
+	$(makethere)
 
 Makefile: makestuff
 Sources += makestuff
@@ -44,7 +48,6 @@ Sources += makestuff
 makestuff:
 	git submodule init $@
 	git submodule update $@
-	cp local.mk $@/
 
 ##################################################################
 
