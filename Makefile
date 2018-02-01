@@ -1,8 +1,6 @@
 # Tests
 ### Hooks for the editor to set the default target
-current: target
-
-target pngtarget pdftarget vtarget acrtarget: final.orders 
+-include target.mk
 
 ##################################################################
 
@@ -16,17 +14,14 @@ target pngtarget pdftarget vtarget acrtarget: final.orders
 
 # Crib
 
-Crib = ~/git/Bio3SS_content
-
-%.pl:
-	$(CP) $(Crib)/$@ .
+Crib = ~/hybrid/3SS/content
 
 ######################################################################
 
 # make files
 
-Sources = Makefile .gitignore README.md submodules.mk LICENSE.md
-include submodules.mk
+Sources = Makefile .gitignore README.md sub.mk LICENSE.md
+include sub.mk
 -include $(ms)/perl.def
 
 ##################################################################
@@ -34,13 +29,10 @@ include submodules.mk
 ## Submodules
 
 Sources += material
+mdirs += material
 
-material/Makefile: %/Makefile:
-	git submodule init $*
-	git submodule update $*
-
-material/%: material/Makefile
-	cd material && $(MAKE) $*
+material:
+	git submodule add -b master https://github.com/Bio3SS/Evaluation_materials $@
 
 ##################################################################
 
@@ -86,14 +78,27 @@ final.bank.test:
 
 # Select the multiple choice part of a test
 .PRECIOUS: %.mc
-%.mc: %.bank null.tmp %.select.fmt $(ms)/talk/lect.pl
+%.mc: %.bank null.tmp %.select.fmt $(ms)/newtalk/lect.pl
 	$(PUSH)
 
 ######################################################################
 
-# Missing SA rules
+# Make combined short lists for each test
+midterm1.short.test: material/linear.short material/nonlinear.short 
+	$(cat)
+
+midterm2.short.test: material/linear.short material/nonlinear.short material/structure.short material/life_history.short
+	$(cat)
+
+# Select the short-answer part of a test
+
+.PRECIOUS: %.sa
+%.sa: %.short.test null.tmp %.select.fmt $(ms)/newtalk/lect.pl
+	$(PUSH)
 
 ######################################################################
+
+midterm1.1.test:
 
 ### Separator for MC and SA on the same test
 Sources += end.dmu

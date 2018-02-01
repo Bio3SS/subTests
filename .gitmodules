@@ -1,6 +1,8 @@
 [submodule "makestuff"]
 	path = makestuff
-	url = git@github.com:dushoff/makestuff.git
+	url = https://github.com/dushoff/makestuff.git
+	branch = master
 [submodule "material"]
 	path = material
-	url = git@github.com:Bio3SS/Evaluation_materials.git
+	url = https://github.com/Bio3SS/Evaluation_materials
+	branch = master

@@ -1,28 +1,22 @@
-commit.time
-null.tmp
-
+## Content from .ignore
+local.mk
+target.mk
 .*.sw*
+make.log
+.gitignore 
 
-*.pdf
-
-*.log
-*.aux
-.*.aux
-*.blg
-*.bbl
-
-*out
+## content from makestuff
+up.time
+commit.time
+commit.default
+dotdir/
+clonedir/
+*.hup
+*.oldfile
+*.olddiff
 *.RData
 *.Rlog
 *.r
 .Rhistory
-
+*.Rout*
 *.wrapR.*
-
-local.mk
-
-testdir/
-.testdir/
-subclone_dir/
-
-*.makestuff
