@@ -1,3 +1,4 @@
+
 # Tests
 ### Hooks for the editor to set the default target
 -include target.mk
@@ -45,9 +46,11 @@ material:
 ## Formulas
 Sources += $(wildcard *.formulas)
 
+Ignore += midterm1.bank
 midterm1.bank: midterm1.formulas material/linear.bank material/nonlinear.bank material/structure.bank
 	$(cat)
 
+Ignore += midterm2.bank
 midterm2.bank: midterm2.formulas material/linear.bank material/nonlinear.bank material/structure.bank material/life_history.bank material/comp.bank
 	$(cat)
 
@@ -58,12 +61,14 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 
 ### Formats
 
+Ignore += null.tmp
 null.tmp:
 	touch $@
 
 %.test.fmt: $(ms)/lect/test.format $(ms)/lect/fmt.pl
 	$(PUSHSTAR)
 
+Ignore += *.select.fmt
 %.select.fmt: $(ms)/lect/select.format $(ms)/lect/fmt.pl
 	$(PUSHSTAR)
 
@@ -78,12 +83,14 @@ final.bank.test:
 
 # Select the multiple choice part of a test
 .PRECIOUS: %.mc
+Ignore += *.mc
 %.mc: %.bank null.tmp %.select.fmt $(ms)/newtalk/lect.pl
 	$(PUSH)
 
 ######################################################################
 
 # Make combined short lists for each test
+Ignore += *.short.test
 midterm1.short.test: material/linear.short material/nonlinear.short 
 	$(cat)
 
@@ -93,6 +100,7 @@ midterm2.short.test: material/linear.short material/nonlinear.short material/str
 # Select the short-answer part of a test
 
 .PRECIOUS: %.sa
+Ignore += *.sa
 %.sa: %.short.test null.tmp %.select.fmt $(ms)/newtalk/lect.pl
 	$(PUSH)
 
