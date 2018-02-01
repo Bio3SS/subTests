@@ -106,6 +106,21 @@ Ignore += *.sa
 
 ######################################################################
 
+## SA processing
+
+midterm1.%.vsa: midterm1.sa testselect.pl
+	$(PUSHSTAR)
+
+## Convert versioned sa to rmd style
+%.rsa: %.vsa lect/knit.fmt $(ms)/newtalk/lect.pl
+	$(PUSH)
+
+## and finally knit
+%.ksa: %.rsa
+	$(knit)
+
+######################################################################
+
 midterm1.1.test:
 
 ### Separator for MC and SA on the same test
