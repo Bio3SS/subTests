@@ -158,6 +158,11 @@ Ignore += *.sa
 ######################################################################
 
 ## SA processing
+## Not scrambling (afraid of format problems)
+	## Maybe these can be solved by always having a page per question
+## Not sure where the scramble markers are going!
+
+
 
 Ignore += *.vsa
 midterm1.%.vsa: midterm1.sa testselect.pl
@@ -205,7 +210,8 @@ Ignore += *.test.tex *.test.pdf
 
 ######################################################################
 
-midterm1.1.exam.pdf:
+midterm1.1.test:
+midterm1.1.test.pdf:
 
 ## Print version
 
