@@ -185,6 +185,12 @@ Ignore += *.test
 %.test: %.mc end.dmu %.ksa
 	$(cat)
 
+## Instructions added for 1M strictness; not sure whether to copy them over
+Sources += sa_inst.tex
+
+## This should be done better
+Sources += copy.tex
+
 ######################################################################
 
 midterm1.1.test:
