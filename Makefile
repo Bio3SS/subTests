@@ -39,7 +39,7 @@ material:
 
 ### Directories
 
-Makefile: talk lect
+Makefile: talk lect material
 
 Ignore += talk lect
 
