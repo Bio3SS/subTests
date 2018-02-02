@@ -158,13 +158,16 @@ Ignore += *.sa
 
 ## SA processing
 
+Ignore += *.vsa
 midterm1.%.vsa: midterm1.sa testselect.pl
 	$(PUSHSTAR)
 
 ## Convert versioned sa to rmd style
+Ignore += *.rsa
 %.rsa: %.vsa lect/knit.fmt $(ms)/newtalk/lect.pl
 	$(PUSH)
 
+Ignore += *.ksa
 ## and finally knit
 knit = echo 'knitr::knit("$<", "$@")' | R --vanilla
 %.ksa: %.rsa
