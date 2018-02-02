@@ -39,7 +39,7 @@ material:
 
 ### Directories
 
-Makefile: talk lect material
+Makefile: talk lect material material/Makefile
 
 Ignore += talk lect
 
@@ -215,6 +215,7 @@ midterm1.1.exam.pdf:
 Sources += $(wildcard *.front.tex)
 
 ## Add cover pages and such
+Ignore += *.test.tex *.test.pdf *.front.pdf
 midterm1.%.exam.pdf: midterm.front.pdf midterm1.%.test.pdf
 	$(pdfcat)
 
