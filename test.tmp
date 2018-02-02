@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx,talk/commands}
+\usepackage{grffile,xspace}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{
+	arrows,decorations.pathmorphing,backgrounds,positioning,fit,calc,scopes
+}
+
+
+\newcommand{\blank}{\rule{5em}{0.4pt}}
+
+\pagestyle{myheadings}
+% \newcommand{\myhead}{\small \bf Bio 3SS3\hfill{}\fullver}
+\newcommand{\myhead}{\small \bf Bio 3SS3\hfill{}Version \testver}
+\newcommand{\myfoot}{\hfill Page \thepage\ \hfill}
+\makeatletter
+\renewcommand{\@oddhead}{\myhead}
+\renewcommand{\@evenhead}{\myhead}
+\renewcommand{\@oddfoot}{\myfoot}
+\renewcommand{\@evenfoot}{\myfoot}
+\makeatother
+
+
+\newcounter{question}
+\newcounter{mc}[question]
+\newcounter{qpart}[question]
+ 
+\begin{document}
+\newcommand{\testver}{Q}
+
+\input{lect/pop.tex}
+\input{lect/dfpar.tex}
+
+% \thispagestyle{empty}
+\setcounter{page}{2}
+
+----------------------------------------------------------------------
+
+\vfill
+\renewcommand{\baselinestretch}{7}
+
+{\tiny \sl \input{copy.tex}}
+
+\end{document}

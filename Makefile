@@ -57,10 +57,10 @@ Ignore += null.tmp
 null.tmp:
 	touch $@
 
+Ignore += *.fmt
 %.test.fmt: lect/test.format lect/fmt.pl
 	$(PUSHSTAR)
 
-Ignore += *.select.fmt
 %.select.fmt: lect/select.format lect/fmt.pl
 	$(PUSHSTAR)
 
@@ -76,6 +76,7 @@ Ignore += *.select.fmt
 
 ## Formulas
 Sources += $(wildcard *.formulas)
+Sources += $(wildcard formula*.tex)
 
 Ignore += midterm1.bank
 midterm1.bank: midterm1.formulas material/linear.bank material/nonlinear.bank material/structure.bank
@@ -180,7 +181,7 @@ knit = echo 'knitr::knit("$<", "$@")' | R --vanilla
 ### Separator for MC and SA on the same test
 Sources += end.dmu
 
-## midterm1.1.test: midterm1.1.mc end.dmu midterm1.1.ksa
+Ignore += *.test
 %.test: %.mc end.dmu %.ksa
 	$(cat)
 
@@ -191,6 +192,7 @@ midterm1.1.test.pdf:
 
 ## Latex outputs
 
+Sources += test.tmp
 %.test.tex: %.test test.tmp test.test.fmt talk/lect.pl
 	$(PUSH)
 
