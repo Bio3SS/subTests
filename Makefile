@@ -199,10 +199,30 @@ midterm1.1.test.pdf:
 ## Latex outputs
 
 Sources += test.tmp
+Ignore += *.test.tex *.test.pdf
 %.test.tex: %.test test.tmp test.test.fmt talk/lect.pl
 	$(PUSH)
 
 ######################################################################
+
+midterm1.1.exam.pdf:
+
+## Print version
+
+## http://printpal.mcmaster.ca/
+## account # 206000301032330000
+
+Sources += $(wildcard *.front.tex)
+
+## Add cover pages and such
+midterm1.%.exam.pdf: midterm.front.pdf midterm1.%.test.pdf
+	$(pdfcat)
+
+midterm2.%.exam.pdf: midterm.front.pdf midterm2.%.test.pdf
+	$(pdfcat)
+
+final.%.exam.pdf: final.front.pdf final.%.final.pdf
+	$(pdfcat)
 
 -include $(ms)/texdeps.mk
 -include $(ms)/git.mk
