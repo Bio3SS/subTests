@@ -37,6 +37,37 @@ material:
 
 ##################################################################
 
+### Directories
+
+Makefile: talk lect
+
+Ignore += talk lect
+
+talk: dir=$(ms)/newtalk
+talk:
+	$(linkdirname)
+
+lect: dir=$(ms)
+lect:
+	$(linkdir)
+
+### Formats
+
+Ignore += null.tmp
+null.tmp:
+	touch $@
+
+%.test.fmt: lect/test.format lect/fmt.pl
+	$(PUSHSTAR)
+
+Ignore += *.select.fmt
+%.select.fmt: lect/select.format lect/fmt.pl
+	$(PUSHSTAR)
+
+######################################################################
+
+## Multiple choice banks
+
 # Combined test banks
 
 ## Templates
@@ -57,93 +88,27 @@ midterm2.bank: midterm2.formulas material/linear.bank material/nonlinear.bank ma
 final.bank: final.formulas material/linear.bank material/nonlinear.bank material/structure.bank material/life_history.bank material/comp.bank material/pred.bank material/disease.bank
 	$(cat)
 
-######################################################################
-
-### Formats
-
-Ignore += null.tmp
-null.tmp:
-	touch $@
-
-%.test.fmt: $(ms)/lect/test.format $(ms)/lect/fmt.pl
-	$(PUSHSTAR)
-
-Ignore += *.select.fmt
-%.select.fmt: $(ms)/lect/select.format $(ms)/lect/fmt.pl
-	$(PUSHSTAR)
+## %.bank.test: %.bank null.tmp bank.select.fmt $(ms)/talk/lect.pl
+##	$(PUSH)
 
 ######################################################################
 
-%.bank.test: %.bank null.tmp bank.select.fmt $(ms)/talk/lect.pl
-	$(PUSH)
+# MC selection
 
-final.bank.test:
-
-######################################################################
-
-# Select the multiple choice part of a test
 .PRECIOUS: %.mc
 Ignore += *.mc
 %.mc: %.bank null.tmp %.select.fmt $(ms)/newtalk/lect.pl
 	$(PUSH)
 
-######################################################################
-
-# Make combined short lists for each test
-Ignore += *.short.test
-midterm1.short.test: material/linear.short material/nonlinear.short 
-	$(cat)
-
-midterm2.short.test: material/linear.short material/nonlinear.short material/structure.short material/life_history.short
-	$(cat)
-
-# Select the short-answer part of a test
-
-.PRECIOUS: %.sa
-Ignore += *.sa
-%.sa: %.short.test null.tmp %.select.fmt $(ms)/newtalk/lect.pl
-	$(PUSH)
-
-######################################################################
-
-## SA processing
-
-midterm1.%.vsa: midterm1.sa testselect.pl
-	$(PUSHSTAR)
-
-## Convert versioned sa to rmd style
-%.rsa: %.vsa lect/knit.fmt $(ms)/newtalk/lect.pl
-	$(PUSH)
-
-## and finally knit
-%.ksa: %.rsa
-	$(knit)
-
-######################################################################
-
-midterm1.1.test:
-
-### Separator for MC and SA on the same test
-Sources += end.dmu
-
-### Combine mc and sa to make the real test
-
-final.test: final.mc
-	$(copy)
-
-%.test: %.mc end.dmu %.ksa
-	$(cat)
-
-######################################################################
-
 # Scramble
 
 Sources += $(wildcard *.pl)
 
-final.%.test: final.mc scramble.pl
+midterm1.%.mc: midterm1.mc scramble.pl
 	$(PUSHSTAR)
 
-######################################################################
+final.%.test: final.mc scramble.pl
+	$(PUSHSTAR)
 
 # Make a skeleton to track how questions are scrambled
 final.skeleton midterm1.skeleton midterm2.skeleton: %.skeleton: %.test skeleton.pl
@@ -172,8 +137,63 @@ final.orders:
 
 ######################################################################
 
+## Short answers
+
+# Make combined SA lists for each test
+Ignore += *.short.test
+midterm1.short.test: material/linear.short material/nonlinear.short 
+	$(cat)
+
+midterm2.short.test: material/linear.short material/nonlinear.short material/structure.short material/life_history.short
+	$(cat)
+
+# Select the short-answer part of a test
+
+.PRECIOUS: %.sa
+Ignore += *.sa
+%.sa: %.short.test null.tmp %.select.fmt $(ms)/newtalk/lect.pl
+	$(PUSH)
+
+######################################################################
+
+## SA processing
+
+midterm1.%.vsa: midterm1.sa testselect.pl
+	$(PUSHSTAR)
+
+## Convert versioned sa to rmd style
+%.rsa: %.vsa lect/knit.fmt $(ms)/newtalk/lect.pl
+	$(PUSH)
+
+## and finally knit
+knit = echo 'knitr::knit("$<", "$@")' | R --vanilla
+%.ksa: %.rsa
+	$(knit)
+
+######################################################################
+
+## Put the test together
+
+### Separator for MC and SA on the same test
+Sources += end.dmu
+
+## midterm1.1.test: midterm1.1.mc end.dmu midterm1.1.ksa
+%.test: %.mc end.dmu %.ksa
+	$(cat)
+
+######################################################################
+
+midterm1.1.test:
+midterm1.1.test.pdf:
+
+## Latex outputs
+
+%.test.tex: %.test test.tmp test.test.fmt talk/lect.pl
+	$(PUSH)
+
+######################################################################
+
+-include $(ms)/texdeps.mk
 -include $(ms)/git.mk
 -include $(ms)/visual.mk
 -include $(ms)/wrapR.mk
-
-# -include $(ms)/oldlatex.mk
