@@ -39,6 +39,8 @@ material/%: material
 	$(makethere)
 
 ## Make this more init-y.
+Sources += assign
+mdirs += assign
 assign:
 	git submodule add -b master https://github.com/Bio3SS/Assignments $@
 
