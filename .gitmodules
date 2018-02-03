@@ -6,3 +6,7 @@
 	path = material
 	url = https://github.com/Bio3SS/Evaluation_materials
 	branch = master
+[submodule "assign"]
+	path = assign
+	url = https://github.com/Bio3SS/Assignments
+	branch = master
