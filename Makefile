@@ -35,7 +35,8 @@ mdirs += material
 material:
 	git submodule add -b master https://github.com/Bio3SS/Evaluation_materials $@
 
-material/%: material
+material/%: 
+	$(MAKE) material
 	$(makethere)
 
 ## Make this more init-y.
@@ -44,7 +45,8 @@ mdirs += assign
 assign:
 	git submodule add -b master https://github.com/Bio3SS/Assignments $@
 
-assign/%: assign
+assign/%: 
+	$(MAKE) assign
 	$(makethere)
 
 ##################################################################
