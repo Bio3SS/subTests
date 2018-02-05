@@ -222,13 +222,9 @@ Ignore += *.test.tex *.test.pdf
 
 ######################################################################
 
-midterm1.1.test:
-midterm1.1.test.pdf:
+midterm1.1.exam.pdf:
 
 ## Print version
-
-## http://printpal.mcmaster.ca/
-## account # 206000301032330000
 
 Sources += $(wildcard *.front.tex)
 
@@ -242,6 +238,15 @@ midterm2.%.exam.pdf: midterm.front.pdf midterm2.%.test.pdf
 
 final.%.exam.pdf: final.front.pdf final.%.final.pdf
 	$(pdfcat)
+
+## http://printpal.mcmaster.ca/
+## account # 206000301032330000
+
+midterm1.3.exam.pdf:
+
+midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
+
+######################################################################
 
 -include $(ms)/texdeps.mk
 -include $(ms)/git.mk
