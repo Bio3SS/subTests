@@ -7,12 +7,6 @@
 
 ## Notes
 
-## Experimenting with makestuff as a submodule
-## Building final stuff first (no SA)
-  ## Need to get somewhere in time for grading
-
-######################################################################
-
 # Crib
 
 Crib = ~/hybrid/3SS/content
