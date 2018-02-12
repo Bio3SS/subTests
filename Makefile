@@ -137,6 +137,15 @@ midterm1.1.sc.csv:
 %.sc.csv: %.ssv scantron.pl
 	$(PUSH)
 
+midterm1.scantron.csv:
+midterm2.scantron.csv:
+final.scantron.csv:
+
+# Combine a bunch of scantron keys into a file for the processors
+final.scantron.csv midterm1.scantron.csv midterm2.scantron.csv: %.scantron.csv: %.1.sc.csv %.2.sc.csv %.3.sc.csv %.4.sc.csv %.5.sc.csv
+	$(cat)
+
+
 ######################################################################
 
 ## Question matching and automatic marking
@@ -167,7 +176,8 @@ final.orders:
 
 # Make combined SA lists for each test
 Ignore += *.short.test
-midterm1.short.test: material/linear.short material/nonlinear.short 
+Sources += sahead.short
+midterm1.short.test: sahead.short material/linear.short material/nonlinear.short 
 	$(cat)
 
 midterm2.short.test: material/linear.short material/nonlinear.short material/structure.short material/life_history.short
