@@ -133,10 +133,11 @@ midterm%.ssv: midterm%.mc key.pl
 	$(PUSH)
 
 # Make a special answer key for scantron processing
-midterm1.1.sc.csv:
+Ignore += *.sc.csv
 %.sc.csv: %.ssv scantron.pl
 	$(PUSH)
 
+Ignore += *.scantron.csv
 midterm1.scantron.csv:
 midterm2.scantron.csv:
 final.scantron.csv:
@@ -241,10 +242,12 @@ Ignore += *.test.tex *.test.pdf
 %.test.tex: %.test test.tmp test.test.fmt talk/lect.pl
 	$(PUSH)
 
+Ignore += *.key.*
 %.key.tex: %.test test.tmp key.test.fmt talk/lect.pl
 	$(PUSH)
 
-## Why is rubric different??
+## Why are rubric dependencies different??
+Ignore += *.rub.*
 %.rub.tex: %.ksa test.tmp rub.test.fmt talk/lect.pl
 	$(PUSH)
 
