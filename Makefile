@@ -129,6 +129,7 @@ final.%.test: final.mc scramble.pl
 # Test key
 .PRECIOUS: %.ssv
 
+Ignore += *.ssv
 midterm%.ssv: midterm%.mc key.pl
 	$(PUSH)
 
