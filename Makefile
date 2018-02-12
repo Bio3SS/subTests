@@ -9,7 +9,12 @@
 
 # Crib
 
-Crib = ~/hybrid/3SS/content
+Crib = ~/hybrid/3SS/content/Makefile
+Crib = ~/hybrid/3SS/content/
+
+.PRECIOUS: %.pl
+%.pl:
+	$(CP) $(Crib)/$@ .
 
 ######################################################################
 
@@ -119,12 +124,28 @@ midterm1.%.mc: midterm1.mc scramble.pl
 final.%.test: final.mc scramble.pl
 	$(PUSHSTAR)
 
+######################################################################
+
+# Test key
+.PRECIOUS: %.ssv
+
+midterm%.ssv: midterm%.mc key.pl
+	$(PUSH)
+
+# Make a special answer key for scantron processing
+midterm1.1.sc.csv:
+%.sc.csv: %.ssv scantron.pl
+	$(PUSH)
+
+######################################################################
+
+## Question matching and automatic marking
 # Make a skeleton to track how questions are scrambled
 final.skeleton midterm1.skeleton midterm2.skeleton: %.skeleton: %.test skeleton.pl
 	$(PUSH)
 
 # Make files showing the order for versions of a test
-midterm1.%.order: midterm2.skeleton scramble.pl
+midterm1.%.order: midterm1.skeleton scramble.pl
 	$(PUSHSTAR)
 
 midterm2.%.order: midterm2.skeleton scramble.pl
@@ -139,10 +160,6 @@ final.%.order: final.skeleton scramble.pl
 
 final.orders:
 
-# Test key
-.PRECIOUS: %.ssv
-%.ssv: %.test key.pl
-	$(PUSH)
 
 ######################################################################
 
@@ -169,8 +186,6 @@ Ignore += *.sa
 ## Not scrambling (afraid of format problems)
 	## Maybe these can be solved by always having a page per question
 ## Not sure where the scramble markers are going!
-
-
 
 Ignore += *.vsa
 midterm1.%.vsa: midterm1.sa testselect.pl
@@ -207,13 +222,20 @@ Sources += copy.tex
 ######################################################################
 
 midterm1.1.test:
-midterm1.1.test.pdf:
+midterm1.1.key.pdf:
 
 ## Latex outputs
 
 Sources += test.tmp
 Ignore += *.test.tex *.test.pdf
 %.test.tex: %.test test.tmp test.test.fmt talk/lect.pl
+	$(PUSH)
+
+%.key.tex: %.test test.tmp key.test.fmt talk/lect.pl
+	$(PUSH)
+
+## Why is rubric different??
+%.rub.tex: %.ksa test.tmp rub.test.fmt talk/lect.pl
 	$(PUSH)
 
 ######################################################################
