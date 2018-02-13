@@ -233,7 +233,6 @@ Sources += copy.tex
 
 ######################################################################
 
-midterm1.1.test:
 midterm1.3.key.pdf:
 
 ## Latex outputs
@@ -251,6 +250,13 @@ Ignore += *.key.*
 Ignore += *.rub.*
 %.rub.tex: %.ksa test.tmp rub.test.fmt talk/lect.pl
 	$(PUSH)
+
+######################################################################
+
+pushdir = web/materials
+
+web:
+	git submodule add -b master https://github.com/Bio3SS/Bio3SS.github.io.git $@
 
 ######################################################################
 
@@ -277,6 +283,10 @@ final.%.exam.pdf: final.front.pdf final.%.final.pdf
 midterm1.3.exam.pdf:
 
 midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
+
+midterm1_post: midterm1.1.test.pdf.pd midterm1.2.test.pdf.pd midterm1.3.test.pdf.pd midterm1.4.test.pdf.pd midterm1.5.test.pdf.pd
+
+midterm1_keys: midterm1.1.key.pdf.pd midterm1.2.key.pdf.pd midterm1.3.key.pdf.pd midterm1.4.key.pdf.pd midterm1.5.key.pdf.pd
 
 ######################################################################
 
