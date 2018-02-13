@@ -258,6 +258,8 @@ pushdir = web/materials
 web:
 	git submodule add -b master https://github.com/Bio3SS/Bio3SS.github.io.git $@
 
+mdirs += web
+
 ######################################################################
 
 midterm1.1.exam.pdf:
