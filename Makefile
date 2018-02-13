@@ -234,7 +234,7 @@ Sources += copy.tex
 ######################################################################
 
 midterm1.1.test:
-midterm1.1.key.pdf:
+midterm1.3.key.pdf:
 
 ## Latex outputs
 
