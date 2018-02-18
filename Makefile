@@ -152,6 +152,7 @@ final.scantron.csv midterm1.scantron.csv midterm2.scantron.csv: %.scantron.csv: 
 
 # Make a skeleton to track how questions are scrambled
 # Will be used later for marking
+Ignore += final.skeleton midterm1.skeleton midterm2.skeleton
 final.skeleton midterm1.skeleton midterm2.skeleton: %.skeleton: %.mc skeleton.pl
 	$(PUSH)
 
