@@ -150,9 +150,9 @@ final.scantron.csv midterm1.scantron.csv midterm2.scantron.csv: %.scantron.csv: 
 
 ######################################################################
 
-## Question matching and automatic marking
 # Make a skeleton to track how questions are scrambled
-final.skeleton midterm1.skeleton midterm2.skeleton: %.skeleton: %.test skeleton.pl
+# Will be used later for marking
+final.skeleton midterm1.skeleton midterm2.skeleton: %.skeleton: %.mc skeleton.pl
 	$(PUSH)
 
 # Make files showing the order for versions of a test
@@ -169,8 +169,7 @@ final.%.order: final.skeleton scramble.pl
 %.orders: %.1.order %.2.order %.3.order %.4.order %.5.order orders.pl
 	$(PUSH)
 
-final.orders:
-
+midterm1.orders:
 
 ######################################################################
 
@@ -250,6 +249,33 @@ Ignore += *.key.*
 Ignore += *.rub.*
 %.rub.tex: %.ksa test.tmp rub.test.fmt talk/lect.pl
 	$(PUSH)
+
+######################################################################
+
+midterm1.office.csv: /home/dushoff/Dropbox/courses/3SS/2018/m1disk/StudentScoresWebCT.csv
+
+###### Marking ######
+
+pushdir = /home/dushoff/Dropbox/courses/3SS/2018
+pulldir = /home/dushoff/Dropbox/courses/3SS/2018
+
+## Student responses from scantron
+## The weird .dlm files are apparently the ones with the raw scans
+## Changing \s to NA so that we can use the simple, strict read_table
+Ignore += *.responses.tsv
+midterm1.responses.tsv: $(pulldir)/m1disk/BIOLOGY3SS315FEB2018.dlm Makefile
+	$(copy)
+
+## Student scores from scantron ofice
+## Use WebCT file for scores instead of rounded proportions
+midterm1.office.csv: $(pulldir)/m1disk/StudentScoresWebCT.csv Makefile
+	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
+
+## Re-score here (gives us control over version errors)
+%.scores.Rout: %.responses.tsv %.ssv %.orders scores.R
+	$(run-R)
+
+midterm1.scores.Rout: midterm1.responses.tsv midterm1.ssv midterm1.orders scores.R
 
 ######################################################################
 
