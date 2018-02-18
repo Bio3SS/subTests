@@ -166,6 +166,7 @@ final.%.order: final.skeleton scramble.pl
 	$(PUSHSTAR)
 
 .PRECIOUS: %.orders
+Ignore += *.orders
 %.orders: %.1.order %.2.order %.3.order %.4.order %.5.order orders.pl
 	$(PUSH)
 
@@ -255,6 +256,8 @@ Ignore += *.rub.*
 midterm1.office.csv: /home/dushoff/Dropbox/courses/3SS/2018/m1disk/StudentScoresWebCT.csv
 
 ###### Marking ######
+
+Sources += $(wildcard *.R)
 
 pushdir = /home/dushoff/Dropbox/courses/3SS/2018
 pulldir = /home/dushoff/Dropbox/courses/3SS/2018
