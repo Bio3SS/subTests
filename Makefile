@@ -272,6 +272,7 @@ midterm1.responses.tsv: $(pulldir)/m1disk/BIOLOGY3SS315FEB2018.dlm Makefile
 
 ## Student scores from scantron ofice
 ## Use WebCT file for scores instead of rounded proportions
+Ignore += midterm1.office.csv
 midterm1.office.csv: $(pulldir)/m1disk/StudentScoresWebCT.csv Makefile
 	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
 
