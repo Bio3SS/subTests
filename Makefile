@@ -297,6 +297,7 @@ midterm1.office.csv: $(pulldir)/m1disk/StudentScoresWebCT.csv Makefile
 ## Patch scantron issues
 ## midterm1.patch.Rout: midterm1.patch.csv midterm1.scorecomp.Rout idpatch.R
 ## One person left a number out of their idnum
+Sources += midterm1.patch.csv
 %.patch.Rout: %.patch.csv %.scorecomp.Rout idpatch.R
 	$(run-R)
 
