@@ -53,6 +53,4 @@ scores <- (responses
 	)
 )
 
-print(scores
-	%>% filter (version != bestVer)
-)
+# rdsave(scores)

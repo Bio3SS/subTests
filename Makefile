@@ -1,5 +1,10 @@
 
 # Tests
+## Includes test and marking machinery (because both depend on scramble stuff)
+## Give this some thought
+## It's basically terrible, since we're routinely pushing to web from a directory that has confidential info
+## pulldir should be a linked directory for navigation purposes
+
 ### Hooks for the editor to set the default target
 -include target.mk
 
@@ -254,14 +259,13 @@ Ignore += *.rub.*
 
 ######################################################################
 
-midterm1.office.csv: /home/dushoff/Dropbox/courses/3SS/2018/m1disk/StudentScoresWebCT.csv
-
 ###### Marking ######
 
 Sources += $(wildcard *.R)
 
-pushdir = /home/dushoff/Dropbox/courses/3SS/2018
 pulldir = /home/dushoff/Dropbox/courses/3SS/2018
+## screen -t pp ~/bin/sdir /home/dushoff/Dropbox/courses/3SS/2018 ##
+
 
 ## Student responses from scantron
 ## The weird .dlm files are apparently the ones with the raw scans
@@ -277,10 +281,46 @@ midterm1.office.csv: $(pulldir)/m1disk/StudentScoresWebCT.csv Makefile
 	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
 
 ## Re-score here (gives us control over version errors)
+	## Also confidence to do analysis later
+## midterm1.scores.Rout: midterm1.responses.tsv midterm1.ssv midterm1.orders scores.R
 %.scores.Rout: %.responses.tsv %.ssv %.orders scores.R
 	$(run-R)
 
-midterm1.scores.Rout: midterm1.responses.tsv midterm1.ssv midterm1.orders scores.R
+## Compare
+
+## All comparisons match for everyone with a version…
+## This means we should just use bestScore, for everyone with a version 
+## midterm1.scorecomp.Rout: midterm1.office.csv midterm1.scores.Rout scorecomp.R
+%.scorecomp.Rout: %.office.csv %.scores.Rout scorecomp.R
+	$(run-R)
+
+## Patch scantron issues
+## midterm1.patch.Rout: midterm1.patch.csv midterm1.scorecomp.Rout idpatch.R
+## One person left a number out of their idnum
+%.patch.Rout: %.patch.csv %.scorecomp.Rout idpatch.R
+	$(run-R)
+
+## Merge SA, MSAF and MC information
+## This needs to be rethought when we attempt to record version info
+## systematically
+## Check again that there are no version issues before using bestScore
+## If versions are recorded systematically, we can match upstream and use score
+midterm1.merge.Rout: $(pulldir)/marks1.tsv midterm1.patch.Rout merge1.R
+	$(run-R)
+
+## Make a file for Avenue
+Sources += avenue.csv 
+
+midterm1.avenue.Rout: midterm1.merge.Rout avenue1.R
+	$(run-R)
+
+midterm1.avenue.Rout.csv: avenue1.R
+
+######################################################################
+
+## Question analysis
+
+## Need to unscramble and other nonsense; there is still stuff in content
 
 ######################################################################
 
@@ -295,7 +335,7 @@ mdirs += web
 
 midterm1.1.exam.pdf:
 
-## Print version
+## Print versions and printing
 
 Sources += $(wildcard *.front.tex)
 
