@@ -1,4 +1,6 @@
 
+## Todo: make private (bitbucket) repo for mark tracking
+
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
 ## Give this some thought
@@ -273,10 +275,11 @@ pulldir/%: pulldir
 ## Student responses from scantron
 ## The weird .dlm files are apparently the ones with the raw scans
 ## Changing space (\s) to NA so that we can use the simple, strict read_table
-	## Did I actually do that or not?
+	## Did I actually do that or not? -- No.
+## Add manual coding (unreadable) scantron
 Ignore += *.responses.tsv
-midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm Makefile
-	$(copy)
+midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
+	$(cat)
 
 ## Student scores from scantron ofice
 ## Use WebCT file for scores instead of rounded proportions
