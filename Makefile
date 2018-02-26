@@ -264,6 +264,7 @@ Ignore += *.rub.*
 
 Sources += $(wildcard *.R)
 
+Ignore += pulldir
 pulldir: dir = /home/dushoff/Dropbox/courses/3SS/2018
 pulldir:
 	$(linkdirname)
