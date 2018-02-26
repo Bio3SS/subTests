@@ -3,7 +3,6 @@
 ## Includes test and marking machinery (because both depend on scramble stuff)
 ## Give this some thought
 ## It's basically terrible, since we're routinely pushing to web from a directory that has confidential info
-## pulldir should be a linked directory for navigation purposes
 
 ### Hooks for the editor to set the default target
 -include target.mk
@@ -263,7 +262,11 @@ Ignore += *.rub.*
 
 Sources += $(wildcard *.R)
 
-pulldir = /home/dushoff/Dropbox/courses/3SS/2018
+pulldir: dir = /home/dushoff/Dropbox/courses/3SS/2018
+pulldir:
+	$(linkdirname)
+pulldir/%: pulldir
+
 ## screen -t pp ~/bin/sdir /home/dushoff/Dropbox/courses/3SS/2018 ##
 
 
@@ -271,13 +274,13 @@ pulldir = /home/dushoff/Dropbox/courses/3SS/2018
 ## The weird .dlm files are apparently the ones with the raw scans
 ## Changing \s to NA so that we can use the simple, strict read_table
 Ignore += *.responses.tsv
-midterm1.responses.tsv: $(pulldir)/m1disk/BIOLOGY3SS315FEB2018.dlm Makefile
+midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm Makefile
 	$(copy)
 
 ## Student scores from scantron ofice
 ## Use WebCT file for scores instead of rounded proportions
 Ignore += midterm1.office.csv
-midterm1.office.csv: $(pulldir)/m1disk/StudentScoresWebCT.csv Makefile
+midterm1.office.csv: pulldir/m1disk/StudentScoresWebCT.csv Makefile
 	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
 
 ## Re-score here (gives us control over version errors)
@@ -306,7 +309,7 @@ Sources += midterm1.patch.csv
 ## systematically
 ## Check again that there are no version issues before using bestScore
 ## If versions are recorded systematically, we can match upstream and use score
-midterm1.merge.Rout: $(pulldir)/marks1.tsv midterm1.patch.Rout merge1.R
+midterm1.merge.Rout: pulldir/marks1.tsv midterm1.patch.Rout merge1.R
 	$(run-R)
 
 ## Make a file for Avenue

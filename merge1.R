@@ -30,6 +30,9 @@ mismatch <- filter(scores,
 print(mismatch)
 stopifnot(nrow(mismatch)==0)
 
+print(filter(scores, is.na(bestScore)))
+print(filter(scores, is.na(sa)))
+
 good <- (scores 
 	%>% filter(!is.na(version))
 	%>% mutate(total = bestScore+sa)
