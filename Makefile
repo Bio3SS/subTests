@@ -272,7 +272,8 @@ pulldir/%: pulldir
 
 ## Student responses from scantron
 ## The weird .dlm files are apparently the ones with the raw scans
-## Changing \s to NA so that we can use the simple, strict read_table
+## Changing space (\s) to NA so that we can use the simple, strict read_table
+	## Did I actually do that or not?
 Ignore += *.responses.tsv
 midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm Makefile
 	$(copy)
