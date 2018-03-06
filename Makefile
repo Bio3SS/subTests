@@ -113,6 +113,8 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 
 ######################################################################
 
+midterm2.1.mc:
+
 # MC selection
 
 .PRECIOUS: %.mc
@@ -125,6 +127,9 @@ Ignore += *.mc
 Sources += $(wildcard *.pl)
 
 midterm1.%.mc: midterm1.mc scramble.pl
+	$(PUSHSTAR)
+
+midterm2.%.mc: midterm2.mc scramble.pl
 	$(PUSHSTAR)
 
 final.%.test: final.mc scramble.pl
@@ -210,6 +215,9 @@ Ignore += *.vsa
 midterm1.%.vsa: midterm1.sa testselect.pl
 	$(PUSHSTAR)
 
+midterm2.%.vsa: midterm2.sa testselect.pl
+	$(PUSHSTAR)
+
 ## Convert versioned sa to rmd style
 Ignore += *.rsa
 %.rsa: %.vsa lect/knit.fmt $(ms)/newtalk/lect.pl
@@ -240,7 +248,7 @@ Sources += copy.tex
 
 ######################################################################
 
-midterm1.3.key.pdf:
+midterm2.3.key.pdf:
 
 ## Latex outputs
 
