@@ -248,7 +248,7 @@ Sources += copy.tex
 
 ######################################################################
 
-midterm2.3.key.pdf:
+midterm2.3.key.pdf: material/structure.short
 
 ## Latex outputs
 
