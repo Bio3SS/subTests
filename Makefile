@@ -158,7 +158,6 @@ final.scantron.csv:
 final.scantron.csv midterm1.scantron.csv midterm2.scantron.csv: %.scantron.csv: %.1.sc.csv %.2.sc.csv %.3.sc.csv %.4.sc.csv %.5.sc.csv
 	$(cat)
 
-
 ######################################################################
 
 # Make a skeleton to track how questions are scrambled
