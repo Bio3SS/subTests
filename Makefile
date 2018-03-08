@@ -249,6 +249,7 @@ Sources += copy.tex
 ######################################################################
 
 midterm2.3.key.pdf: material/structure.short
+midterm2.3.test.pdf: material/structure.bank
 
 ## Latex outputs
 
