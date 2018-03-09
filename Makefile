@@ -113,7 +113,7 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 
 ######################################################################
 
-midterm2.1.mc:
+midterm2.mc:
 
 # MC selection
 
@@ -218,6 +218,9 @@ midterm1.%.vsa: midterm1.sa testselect.pl
 midterm2.%.vsa: midterm2.sa testselect.pl
 	$(PUSHSTAR)
 
+midterm2.vsa: midterm2.sa
+	$(cat)
+
 ## Convert versioned sa to rmd style
 Ignore += *.rsa
 %.rsa: %.vsa lect/knit.fmt $(ms)/newtalk/lect.pl
@@ -248,7 +251,8 @@ Sources += copy.tex
 
 ######################################################################
 
-midterm2.3.test.pdf: material/structure.bank
+midterm2.test.pdf: material/life_history.bank
+midterm2.3.test.pdf: material/life_history.bank
 
 ## Latex outputs
 
