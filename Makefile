@@ -370,6 +370,8 @@ final.%.exam.pdf: final.front.pdf final.%.final.pdf
 ## http://printpal.mcmaster.ca/
 ## account # 206000301032330000
 
+## White, orchid, green, salmon 
+
 midterm1.3.test.pdf:
 
 midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
