@@ -34,6 +34,7 @@ include sub.mk
 
 ## Submodules
 
+## Test material is here
 Sources += material
 mdirs += material
 
@@ -44,7 +45,8 @@ material/%:
 	$(MAKE) material
 	$(makethere)
 
-## Make this more init-y.
+## This submodule seems like a legacy. What is used?
+## Probably some diagrams and stuff
 Sources += assign
 mdirs += assign
 assign:
@@ -233,6 +235,8 @@ knit = echo 'knitr::knit("$<", "$@")' | R --vanilla
 
 ######################################################################
 
+midterm2.1.rub.pdf: material/structure.short
+
 ## Put the test together
 
 ### Separator for MC and SA on the same test
@@ -385,11 +389,17 @@ midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midte
 
 midterm1_post: midterm1.1.test.pdf.pd midterm1.2.test.pdf.pd midterm1.3.test.pdf.pd midterm1.4.test.pdf.pd midterm1.5.test.pdf.pd
 
+midterm1.rub.zip: midterm1.1.rub.pdf midterm1.2.rub.pdf midterm1.3.rub.pdf midterm1.4.rub.pdf midterm1.5.rub.pdf
+	$(ZIP)
+
 midterm2_ship: midterm2.1.exam.pdf midterm2.2.exam.pdf midterm2.3.exam.pdf midterm2.4.exam.pdf midterm2.5.exam.pdf
 
 midterm2_post: midterm2.1.test.pdf.pd midterm2.2.test.pdf.pd midterm2.3.test.pdf.pd midterm2.4.test.pdf.pd midterm2.5.test.pdf.pd
 
 midterm1_keys: midterm1.1.key.pdf.pd midterm1.2.key.pdf.pd midterm1.3.key.pdf.pd midterm1.4.key.pdf.pd midterm1.5.key.pdf.pd
+
+midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midterm2.4.rub.pdf midterm2.5.rub.pdf
+	$(ZIP)
 
 ######################################################################
 
