@@ -361,7 +361,7 @@ mdirs += web
 
 ######################################################################
 
-midterm1.1.exam.pdf:
+midterm2.1.exam.pdf:
 
 ## Print versions and printing
 
