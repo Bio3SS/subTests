@@ -356,10 +356,10 @@ midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 ## Make a file for Avenue
 Sources += avenue.csv 
 
-midterm1.avenue.Rout: midterm1.merge.Rout avenue1.R
+midterm%.avenue.Rout: midterm%.merge.Rout avenue%.R
 	$(run-R)
 
-midterm1.avenue.Rout.csv: avenue1.R
+midterm2.avenue.Rout.csv: avenue2.R
 
 ######################################################################
 
