@@ -2,7 +2,7 @@ library(readr)
 library(dplyr)
 
 sheet <- (read_tsv(input_files[[1]])
-	%>% transmute(idnum=idnum, macid=macid
+	%>% transmute(idnum=as.numeric(idnum), macid=macid
 		, sa=`Exam 2 SA`, manVer = `Exam 2 Version`
 	)
 )

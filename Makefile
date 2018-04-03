@@ -308,8 +308,8 @@ midterm2.responses.tsv: pulldir/m2disk/BIOLOGY3SS323MAR2018.dlm
 ## Use WebCT file for scores instead of rounded proportions
 Ignore += midterm1.office.csv midterm2.office.csv
 
-office: midterm1.office.csv midterm2.office.csv
-midterm%.office.csv: pulldir/m%disk/StudentScoresWebCT.csv
+midterm2.office.csv:
+midterm%.office.csv: pulldir/m%disk/StudentScoresWebCT.csv Makefile
 	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
 
 ## Re-score here (gives us control over version errors)
@@ -334,8 +334,9 @@ Sources += $(wildcard midterm.patch.csv)
 	$(run-R)
 
 ## Is this robust? Second rule for patch should only be called if there is no .patch.csv?
-%.patch.Rout: %.scorecomp.Rout
-	$(rcopy)
+midterm2.patch.Rout: nullpatch.R
+%.patch.Rout: %.scorecomp.Rout nullpatch.R
+	$(run-R)
 
 ## Merge SA, MSAF and MC information
 ## This needs to be rethought when we attempt to record version info
@@ -343,7 +344,12 @@ Sources += $(wildcard midterm.patch.csv)
 ## Check again that there are no version issues before using bestScore
 ## If versions are recorded systematically, we can match upstream and use score
 ## There are two merge?.R files; this seems stupid
-midterm2.merge.Rout: 
+
+## MSAFs seem to be recorded on the course Google sheet
+## https://docs.google.com/spreadsheets/d/1AqC5xwc-GsDTMKM8-hHYeXkLzGC0JN2ZjabL8XmZTdk/edit#gid=0
+## marks%.tsv are various downloads from there
+
+midterm2.merge.Rout:
 midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
