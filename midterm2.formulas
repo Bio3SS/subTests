@@ -1,3 +1,5 @@
+INTRO \setcounter{page}{2}
+
 INTRO \input{formulas1.tex}
 
 INTRO \input{formulas2.tex}

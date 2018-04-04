@@ -110,6 +110,9 @@ midterm2.bank: midterm2.formulas material/linear.bank material/nonlinear.bank ma
 final.bank: final.formulas material/linear.bank material/nonlinear.bank material/structure.bank material/life_history.bank material/comp.bank material/pred.bank material/disease.bank
 	$(cat)
 
+final.1.test.pdf: final.formulas
+final.test.pdf: final.formulas
+
 ## %.bank.test: %.bank null.tmp bank.select.fmt $(ms)/talk/lect.pl
 ##	$(PUSH)
 
@@ -118,6 +121,7 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 midterm2.mc:
 
 # MC selection
+# Use lect/select.format
 
 .PRECIOUS: %.mc
 Ignore += *.mc
@@ -136,6 +140,9 @@ midterm2.%.mc: midterm2.mc scramble.pl
 
 final.%.test: final.mc scramble.pl
 	$(PUSHSTAR)
+
+final.test: final.mc
+	$(copy)
 
 ######################################################################
 
@@ -235,7 +242,6 @@ knit = echo 'knitr::knit("$<", "$@")' | R --vanilla
 
 ######################################################################
 
-midterm2.1.rub.pdf: material/structure.short
 
 ## Put the test together
 
@@ -382,7 +388,10 @@ midterm2.1.exam.pdf:
 
 ## Print versions and printing
 
+## Cover pages handled differently (history)
 Sources += $(wildcard *.front.tex)
+Sources += final_texcover.tex
+Sources += scantron.jpg
 
 ## Add cover pages and such
 Ignore += *.exam.tex *.exam.pdf *.front.pdf
