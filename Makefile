@@ -107,6 +107,7 @@ Ignore += midterm2.bank
 midterm2.bank: midterm2.formulas material/linear.bank material/nonlinear.bank material/structure.bank material/life_history.bank material/comp.bank
 	$(cat)
 
+Ignore += final.bank
 final.bank: final.formulas material/linear.bank material/nonlinear.bank material/structure.bank material/life_history.bank material/comp.bank material/pred.bank material/disease.bank
 	$(cat)
 
