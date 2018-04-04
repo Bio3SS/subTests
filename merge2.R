@@ -40,6 +40,8 @@ good <- (scores
 print(filter(good, is.na(bestScore)))
 print(filter(good, is.na(sa)))
 
+print(summary(good))
+
 grades <- pull(good, total)
 mean(grades)
 sd(grades)
