@@ -301,31 +301,41 @@ Ignore += *.responses.tsv
 midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
 	$(cat)
 
+midterm2.responses.tsv: pulldir/m2disk/BIOLOGY3SS323MAR2018.dlm
+	$(cat)
+
 ## Student scores from scantron ofice
 ## Use WebCT file for scores instead of rounded proportions
-Ignore += midterm1.office.csv
-midterm1.office.csv: pulldir/m1disk/StudentScoresWebCT.csv Makefile
+Ignore += midterm1.office.csv midterm2.office.csv
+
+midterm2.office.csv:
+midterm%.office.csv: pulldir/m%disk/StudentScoresWebCT.csv Makefile
 	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
 
 ## Re-score here (gives us control over version errors)
 	## Also confidence to do analysis later
-## midterm1.scores.Rout: midterm1.responses.tsv midterm1.ssv midterm1.orders scores.R
+midterm2.scores.Rout: midterm2.responses.tsv midterm2.ssv midterm2.orders scores.R
 %.scores.Rout: %.responses.tsv %.ssv %.orders scores.R
 	$(run-R)
 
 ## Compare
 
-## All comparisons match for everyone with a version…
-## This means we should just use bestScore, for everyone with a version 
-## midterm1.scorecomp.Rout: midterm1.office.csv midterm1.scores.Rout scorecomp.R
+## All comparisons should match for everyone with a version…
+## In this case, use bestScore for everyone with a version 
+midterm2.scorecomp.Rout: midterm2.office.csv midterm2.scores.Rout scorecomp.R
 %.scorecomp.Rout: %.office.csv %.scores.Rout scorecomp.R
 	$(run-R)
 
-## Patch scantron issues
+## Patch scantron issues (last used 2018M1)
+	## One person left a number out of their idnum
 ## midterm1.patch.Rout: midterm1.patch.csv midterm1.scorecomp.Rout idpatch.R
-## One person left a number out of their idnum
-Sources += midterm1.patch.csv
+Sources += $(wildcard midterm.patch.csv)
 %.patch.Rout: %.patch.csv %.scorecomp.Rout idpatch.R
+	$(run-R)
+
+## Is this robust? Second rule for patch should only be called if there is no .patch.csv?
+midterm2.patch.Rout: nullpatch.R
+%.patch.Rout: %.scorecomp.Rout nullpatch.R
 	$(run-R)
 
 ## Merge SA, MSAF and MC information
@@ -333,16 +343,23 @@ Sources += midterm1.patch.csv
 ## systematically
 ## Check again that there are no version issues before using bestScore
 ## If versions are recorded systematically, we can match upstream and use score
-midterm1.merge.Rout: pulldir/marks1.tsv midterm1.patch.Rout merge1.R
+## There are two merge?.R files; this seems stupid
+
+## MSAFs seem to be recorded on the course Google sheet
+## https://docs.google.com/spreadsheets/d/1AqC5xwc-GsDTMKM8-hHYeXkLzGC0JN2ZjabL8XmZTdk/edit#gid=0
+## marks%.tsv are various downloads from there
+
+midterm2.merge.Rout:
+midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
 ## Make a file for Avenue
 Sources += avenue.csv 
 
-midterm1.avenue.Rout: midterm1.merge.Rout avenue1.R
+midterm%.avenue.Rout: midterm%.merge.Rout avenue%.R
 	$(run-R)
 
-midterm1.avenue.Rout.csv: avenue1.R
+midterm2.avenue.Rout.csv: avenue2.R
 
 ######################################################################
 
@@ -361,7 +378,7 @@ mdirs += web
 
 ######################################################################
 
-midterm1.1.exam.pdf:
+midterm2.1.exam.pdf:
 
 ## Print versions and printing
 
