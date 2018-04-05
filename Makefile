@@ -113,6 +113,7 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 
 final.1.test.pdf: final.formulas
 final.test.pdf: final.formulas
+final.key.pdf: final.formulas
 
 ## %.bank.test: %.bank null.tmp bank.select.fmt $(ms)/talk/lect.pl
 ##	$(PUSH)
