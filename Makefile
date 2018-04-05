@@ -155,6 +155,9 @@ Ignore += *.ssv
 midterm%.ssv: midterm%.mc key.pl
 	$(PUSH)
 
+final.%.ssv: final.%.test key.pl
+	$(PUSH)
+
 # Make a special answer key for scantron processing
 Ignore += *.sc.csv
 %.sc.csv: %.ssv scantron.pl
@@ -390,7 +393,8 @@ midterm2.1.exam.pdf:
 
 ## Print versions and printing
 
-## Cover pages handled differently (history)
+## Cover pages handled differently
+## This is because the final cover needs to know the number of pages
 Sources += $(wildcard *.front.tex)
 Sources += final_texcover.tex
 Sources += scantron.jpg
@@ -428,6 +432,15 @@ midterm2_keys: midterm2.1.key.pdf.pd midterm2.2.key.pdf.pd midterm2.3.key.pdf.pd
 
 midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midterm2.4.rub.pdf midterm2.5.rub.pdf
 	$(ZIP)
+
+## Search email for Exam Upload Instructions (or notice when email arrives and do something)
+final_ship: Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf ;
+
+Bio_3SS3_C01_V%.pdf: final.%.test.pdf
+	$(link)
+
+## 2018 Shipping Screenshot
+## downcall pulldir/ship.png ##
 
 ######################################################################
 
