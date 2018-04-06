@@ -374,6 +374,20 @@ midterm2.avenue.Rout.csv: avenue2.R
 
 ######################################################################
 
+## Grade sheet scripts ##
+## I guess this would be good to have somewhere else, for simplicity
+
+## Principled approach to NAs: add text NA for an MSAF
+## Use a perl script to replace blanks with zeroes
+
+## Not clear why I'm keeping different tsvs in pulldir, but it's not hurting much.
+
+marks.tsv: pulldir/marks3.tsv zero.pl
+	$(PUSH)
+TAmarks.Rout: pulldir/marks3.tsv TAmarks.R
+
+######################################################################
+
 ## Question analysis
 
 ## Need to unscramble and other nonsense; there is still stuff in content
