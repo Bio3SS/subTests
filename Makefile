@@ -146,6 +146,7 @@ final.%.test: final.mc scramble.pl
 final.test: final.mc
 	$(copy)
 
+ 
 ######################################################################
 
 # Test key
@@ -306,7 +307,7 @@ pulldir/%: pulldir
 ## Student responses from scantron
 ## The weird .dlm files are apparently the ones with the raw scans
 ## Changing space (\s) to NA so that we can use the simple, strict read_table
-	## Did I actually do that or not? -- No.
+## 	Did I actually do that or not? -- No.
 ## Add manual coding (unreadable) scantron
 Ignore += *.responses.tsv
 midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
@@ -360,11 +361,16 @@ midterm2.patch.Rout: nullpatch.R
 ## https://docs.google.com/spreadsheets/d/1AqC5xwc-GsDTMKM8-hHYeXkLzGC0JN2ZjabL8XmZTdk/edit#gid=0
 ## marks%.tsv are various downloads from there
 
+## Looking for grade post site?
+## https://avenue.cllmcmaster.ca/d2l/home/235353
+## Try assesment/grades/enter grades/import
 midterm2.merge.Rout:
 midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
 ## Make a file for Avenue
+## This is just an example!
+## I guess missing people here are just missing?
 Sources += avenue.csv 
 
 midterm%.avenue.Rout: midterm%.merge.Rout avenue%.R
@@ -382,9 +388,16 @@ midterm2.avenue.Rout.csv: avenue2.R
 
 ## Not clear why I'm keeping different tsvs in pulldir, but it's not hurting much.
 
+## Drops are people marked as not matching by the Avenue import
+Ignore += marks.tsv
 marks.tsv: pulldir/marks3.tsv zero.pl
 	$(PUSH)
-TAmarks.Rout: pulldir/marks3.tsv TAmarks.R
+TAmarks.Rout: marks.tsv pulldir/drops.csv TAmarks.R
+TAmarks.Rout.csv: TAmarks.R
+
+Sources += na_fake.pl
+TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
+	$(PUSH)
 
 ######################################################################
 
@@ -409,8 +422,8 @@ midterm2.1.exam.pdf:
 
 ## Cover pages handled differently
 ## This is because the final cover needs to know the number of pages
+## so it's part of the main tex document
 Sources += $(wildcard *.front.tex)
-Sources += final_texcover.tex
 Sources += scantron.jpg
 
 ## Add cover pages and such
@@ -421,8 +434,14 @@ midterm1.%.exam.pdf: midterm.front.pdf midterm1.%.test.pdf
 midterm2.%.exam.pdf: midterm.front.pdf midterm2.%.test.pdf
 	$(pdfcat)
 
-final.%.exam.pdf: final.front.pdf final.%.final.pdf
-	$(pdfcat)
+Sources += final.tmp examno.pl final.cover.tex
+final.3.final.pdf: final.tmp 
+
+final.%.tmp: final.tmp examno.pl
+	$(PUSHSTAR)
+
+%.final.tex: %.test %.tmp test.test.fmt talk/lect.pl
+	$(PUSH)
 
 ## http://printpal.mcmaster.ca/
 ## account # 206000301032330000
@@ -448,13 +467,15 @@ midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midte
 	$(ZIP)
 
 ## Search email for Exam Upload Instructions (or notice when email arrives and do something)
+Ignore += $(wildcard Bio_3SS3*.pdf) 
 final_ship: Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf ;
 
-Bio_3SS3_C01_V%.pdf: final.%.test.pdf
-	$(link)
+Bio_3SS3_C01_V%.pdf: final.%.final.pdf
+	$(forcelink)
 
 ## 2018 Shipping Screenshot
 ## downcall pulldir/ship.png ##
+## "Forgot" to re-screenshot (uploaded extra files)
 
 ######################################################################
 
