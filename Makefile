@@ -396,6 +396,7 @@ TAmarks.Rout: marks.tsv pulldir/drops.csv TAmarks.R
 TAmarks.Rout.csv: TAmarks.R
 
 Sources += na_fake.pl
+Ignore += TAmarks.avenue.csv
 TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
 	$(PUSH)
 
@@ -468,6 +469,7 @@ midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midte
 
 ## Search email for Exam Upload Instructions (or notice when email arrives and do something)
 Ignore += $(wildcard Bio_3SS3*.pdf) 
+Ignore += $(wildcard final*final.pdf) 
 final_ship: Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf ;
 
 Bio_3SS3_C01_V%.pdf: final.%.final.pdf
