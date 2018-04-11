@@ -4,7 +4,6 @@
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
 ## Give this some thought
-## It's basically terrible, since we're routinely pushing to web from a directory that has confidential info
 
 ### Hooks for the editor to set the default target
 -include target.mk
@@ -330,6 +329,11 @@ midterm2.scores.Rout: midterm2.responses.tsv midterm2.ssv midterm2.orders scores
 %.scores.Rout: %.responses.tsv %.ssv %.orders scores.R
 	$(run-R)
 
+Sources += midterm2p.ssv
+### Patching midterm 2 (D'oh!)
+midterm2p.scores.Rout: midterm2.responses.tsv midterm2p.ssv midterm2.orders scores.R
+	$(run-R)
+
 ## Compare
 
 ## All comparisons should match for everyone with a version…
@@ -364,7 +368,9 @@ midterm2.patch.Rout: nullpatch.R
 ## Looking for grade post site?
 ## https://avenue.cllmcmaster.ca/d2l/home/235353
 ## Try assesment/grades/enter grades/import
-midterm2.merge.Rout:
+midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
+	$(run-R)
+
 midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
