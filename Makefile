@@ -330,7 +330,7 @@ midterm2.scores.Rout: midterm2.responses.tsv midterm2.ssv midterm2.orders scores
 	$(run-R)
 
 Sources += midterm2p.ssv
-### Patching midterm 2 (D'oh!)
+### Correcting an answer (D'oh!)
 midterm2p.scores.Rout: midterm2.responses.tsv midterm2p.ssv midterm2.orders scores.R
 	$(run-R)
 
@@ -350,8 +350,10 @@ Sources += $(wildcard midterm.patch.csv)
 	$(run-R)
 
 ## Is this robust? Second rule for patch should only be called if there is no .patch.csv?
-midterm2.patch.Rout: nullpatch.R
 %.patch.Rout: %.scorecomp.Rout nullpatch.R
+	$(run-R)
+
+midterm2.patch.Rout: midterm2.scorecomp.Rout.envir midterm2p.scores.Rout.envir addCorrection.R
 	$(run-R)
 
 ## Merge SA, MSAF and MC information
@@ -365,9 +367,6 @@ midterm2.patch.Rout: nullpatch.R
 ## https://docs.google.com/spreadsheets/d/1AqC5xwc-GsDTMKM8-hHYeXkLzGC0JN2ZjabL8XmZTdk/edit#gid=0
 ## marks%.tsv are various downloads from there
 
-## Looking for grade post site?
-## https://avenue.cllmcmaster.ca/d2l/home/235353
-## Try assesment/grades/enter grades/import
 midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
@@ -375,8 +374,11 @@ midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
 ## Make a file for Avenue
+## Looking for grade post site
+## https://avenue.cllmcmaster.ca/d2l/home/235353
+## Try assesment/grades/enter grades/import
+
 ## This is just an example!
-## I guess missing people here are just missing?
 Sources += avenue.csv 
 
 midterm%.avenue.Rout: midterm%.merge.Rout avenue%.R
