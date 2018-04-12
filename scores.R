@@ -41,8 +41,9 @@ summary(bestScore)
 summary(bestVer)
 
 ## Try to instead get a score for the bubbled version
+bubbleVersion <- pull(responses, X2)
 verScore <- sapply(1:ncol(allScores), function(i){
-	return(allScores)
+	return(allScores[[bubbleVersion[[i]], i]])
 })
 
 scores <- (responses
@@ -50,7 +51,10 @@ scores <- (responses
 		, version=X2
 		, bestScore
 		, bestVer
+		, verScore
 	)
 )
+
+summary(scores)
 
 # rdsave(scores)

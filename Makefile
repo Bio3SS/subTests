@@ -4,7 +4,6 @@
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
 ## Give this some thought
-## It's basically terrible, since we're routinely pushing to web from a directory that has confidential info
 
 ### Hooks for the editor to set the default target
 -include target.mk
@@ -162,6 +161,7 @@ final.%.test: final.mc scramble.pl
 final.test: final.mc
 	$(copy)
 
+ 
 ######################################################################
 
 # Test key
@@ -169,6 +169,9 @@ final.test: final.mc
 
 Ignore += *.ssv
 midterm%.ssv: midterm%.mc key.pl
+	$(PUSH)
+
+final.%.ssv: final.%.test key.pl
 	$(PUSH)
 
 # Make a special answer key for scantron processing
@@ -319,7 +322,7 @@ pulldir/%: pulldir
 ## Student responses from scantron
 ## The weird .dlm files are apparently the ones with the raw scans
 ## Changing space (\s) to NA so that we can use the simple, strict read_table
-	## Did I actually do that or not? -- No.
+## 	Did I actually do that or not? -- No.
 ## Add manual coding (unreadable) scantron
 Ignore += *.responses.tsv
 midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
@@ -342,6 +345,11 @@ midterm2.scores.Rout: midterm2.responses.tsv midterm2.ssv midterm2.orders scores
 %.scores.Rout: %.responses.tsv %.ssv %.orders scores.R
 	$(run-R)
 
+Sources += midterm2p.ssv
+### Correcting an answer (D'oh!)
+midterm2p.scores.Rout: midterm2.responses.tsv midterm2p.ssv midterm2.orders scores.R
+	$(run-R)
+
 ## Compare
 
 ## All comparisons should match for everyone with a version…
@@ -358,8 +366,10 @@ Sources += $(wildcard midterm.patch.csv)
 	$(run-R)
 
 ## Is this robust? Second rule for patch should only be called if there is no .patch.csv?
-midterm2.patch.Rout: nullpatch.R
 %.patch.Rout: %.scorecomp.Rout nullpatch.R
+	$(run-R)
+
+midterm2.patch.Rout: midterm2.scorecomp.Rout.envir midterm2p.scores.Rout.envir addCorrection.R
 	$(run-R)
 
 ## Merge SA, MSAF and MC information
@@ -373,17 +383,46 @@ midterm2.patch.Rout: nullpatch.R
 ## https://docs.google.com/spreadsheets/d/1AqC5xwc-GsDTMKM8-hHYeXkLzGC0JN2ZjabL8XmZTdk/edit#gid=0
 ## marks%.tsv are various downloads from there
 
-midterm2.merge.Rout:
+midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
+	$(run-R)
+
 midterm%.merge.Rout: pulldir/marks%.tsv midterm%.patch.Rout merge%.R
 	$(run-R)
 
 ## Make a file for Avenue
+## Looking for grade post site
+## https://avenue.cllmcmaster.ca/d2l/home/235353
+## Try assesment/grades/enter grades/import
+
+## This is just an example!
 Sources += avenue.csv 
 
 midterm%.avenue.Rout: midterm%.merge.Rout avenue%.R
 	$(run-R)
 
 midterm2.avenue.Rout.csv: avenue2.R
+
+######################################################################
+
+## Grade sheet scripts ##
+## I guess this would be good to have somewhere else, for simplicity
+
+## Principled approach to NAs: add text NA for an MSAF
+## Use a perl script to replace blanks with zeroes
+
+## Not clear why I'm keeping different tsvs in pulldir, but it's not hurting much.
+
+## Drops are people marked as not matching by the Avenue import
+Ignore += marks.tsv
+marks.tsv: pulldir/marks3.tsv zero.pl
+	$(PUSH)
+TAmarks.Rout: marks.tsv pulldir/drops.csv TAmarks.R
+TAmarks.Rout.csv: TAmarks.R
+
+Sources += na_fake.pl
+Ignore += TAmarks.avenue.csv
+TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
+	$(PUSH)
 
 ######################################################################
 
@@ -406,9 +445,10 @@ midterm2.1.exam.pdf:
 
 ## Print versions and printing
 
-## Cover pages handled differently (history)
+## Cover pages handled differently
+## This is because the final cover needs to know the number of pages
+## so it's part of the main tex document
 Sources += $(wildcard *.front.tex)
-Sources += final_texcover.tex
 Sources += scantron.jpg
 
 ## Add cover pages and such
@@ -419,8 +459,14 @@ midterm1.%.exam.pdf: midterm.front.pdf midterm1.%.test.pdf
 midterm2.%.exam.pdf: midterm.front.pdf midterm2.%.test.pdf
 	$(pdfcat)
 
-final.%.exam.pdf: final.front.pdf final.%.final.pdf
-	$(pdfcat)
+Sources += final.tmp examno.pl final.cover.tex
+final.3.final.pdf: final.tmp 
+
+final.%.tmp: final.tmp examno.pl
+	$(PUSHSTAR)
+
+%.final.tex: %.test %.tmp test.test.fmt talk/lect.pl
+	$(PUSH)
 
 ## http://printpal.mcmaster.ca/
 ## account # 206000301032330000
@@ -444,6 +490,18 @@ midterm2_keys: midterm2.1.key.pdf.pd midterm2.2.key.pdf.pd midterm2.3.key.pdf.pd
 
 midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midterm2.4.rub.pdf midterm2.5.rub.pdf
 	$(ZIP)
+
+## Search email for Exam Upload Instructions (or notice when email arrives and do something)
+Ignore += $(wildcard Bio_3SS3*.pdf) 
+Ignore += $(wildcard final*final.pdf) 
+final_ship: Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf ;
+
+Bio_3SS3_C01_V%.pdf: final.%.final.pdf
+	$(forcelink)
+
+## 2018 Shipping Screenshot
+## downcall pulldir/ship.png ##
+## "Forgot" to re-screenshot (uploaded extra files)
 
 ######################################################################
 

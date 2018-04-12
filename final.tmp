@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+\usepackage{epsfig,grffile,lastpage,xspace}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{talk/commands}
+
+\input{lect/pop.tex}
+\input{lect/dfpar.tex}
+
+\newcommand{\blank}{\rule{5em}{0.4pt}}
+
+\pagestyle{myheadings}
+\newcommand{\myhead}{\small \bf Bio 3SS3\hfill Version \testver\hfill McMaster University Final Examination}
+\newcommand{\myfoot}{\hfill Page \thepage\ of \pageref{LastPage}}
+
+\makeatletter
+\renewcommand{\@oddhead}{\myhead}
+\renewcommand{\@evenhead}{\myhead}
+\renewcommand{\@oddfoot}{\myfoot}
+\renewcommand{\@evenfoot}{\myfoot}
+\makeatother
+
+\newcounter{question}
+\newcounter{mc}[question]
+\newcounter{qpart}[question]
+\renewcommand{\testver}{VVV}
+% \setcounter{page}{1}
+ 
+\begin{document}
+
+% Update year (anything else?)
+\input{final.cover.tex}
+
+\newgeometry{margin=1.2in}
+\clearpage
+
+----------------------------------------------------------------------
+
+\vfill
+
+\noindent\textbf{The End}
+
+\vfill
+
+\renewcommand{\baselinestretch}{7}
+
+{\tiny \sl \input{copy.tex}}
+
+% \renewcommand{\myfoot}{\hfill \textbf{The End}\hfill}
+
+\end{document}
