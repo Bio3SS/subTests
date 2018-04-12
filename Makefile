@@ -47,6 +47,7 @@ material/%:
 
 ## This submodule seems like a legacy. What is used?
 ## Probably some diagrams and stuff
+## How does it differ from material (both are private)?
 Sources += assign
 mdirs += assign
 assign:
@@ -54,6 +55,21 @@ assign:
 
 assign/%: 
 	$(MAKE) assign
+	$(makethere)
+
+## There is also a private repo called Grading_scripts (out of date)
+## and a public successor called Grading
+## It might be good to farm the grading scripts out to Grading,
+## and to use Grading_scripts to keep grade files that we might want to diff
+
+## Grading has poll everywhere stuff
+Sources += Grading
+mdirs += Grading
+Grading:
+	git submodule add -b master https://github.com/Bio3SS/$@
+
+Grading/%: 
+	$(MAKE) Grading
 	$(makethere)
 
 ##################################################################

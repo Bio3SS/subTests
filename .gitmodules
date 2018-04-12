@@ -14,3 +14,7 @@
 	path = web
 	url = https://github.com/Bio3SS/Bio3SS.github.io.git
 	branch = master
+[submodule "Grading"]
+	path = Grading
+	url = https://github.com/Bio3SS/Grading
+	branch = master
