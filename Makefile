@@ -62,6 +62,7 @@ assign/%:
 ## and to use Grading_scripts to keep grade files that we might want to diff
 
 ## Grading has poll everywhere stuff
+## This whole structure should probably be reversed -- let Grading import Tests?
 Sources += Grading
 mdirs += Grading
 Grading:
