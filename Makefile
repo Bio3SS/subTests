@@ -176,6 +176,7 @@ final.%.ssv: final.%.test key.pl
 	$(PUSH)
 
 # Make a special answer key for scantron processing
+# To allow multiple answers, use KEY in the .bank file
 Ignore += *.sc.csv
 %.sc.csv: %.ssv scantron.pl
 	$(PUSH)
