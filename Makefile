@@ -415,12 +415,14 @@ midterm2.avenue.Rout.csv: avenue2.R
 ## Not clear why I'm keeping different tsvs in pulldir, but it's not hurting much.
 
 ## Drops are people marked as not matching by the Avenue import
+## Working on obsoleting this in Grading
 Ignore += marks.tsv
 marks.tsv: pulldir/marks3.tsv zero.pl
 	$(PUSH)
 TAmarks.Rout: marks.tsv pulldir/drops.csv TAmarks.R
 TAmarks.Rout.csv: TAmarks.R
 
+## Not clear if Avenue interprets "-" correctly (or else sets to 0)
 Sources += na_fake.pl
 Ignore += TAmarks.avenue.csv
 TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
