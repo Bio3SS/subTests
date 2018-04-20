@@ -62,15 +62,7 @@ assign/%:
 ## and to use Grading_scripts to keep grade files that we might want to diff
 
 ## Grading has poll everywhere stuff
-## This whole structure should probably be reversed -- let Grading import Tests?
-Sources += Grading
-mdirs += Grading
-Grading:
-	git submodule add -b master https://github.com/Bio3SS/$@
-
-Grading/%: 
-	$(MAKE) Grading
-	$(makethere)
+## It used to be a submodule of Tests, but I'm trying to reverse that
 
 ##################################################################
 
