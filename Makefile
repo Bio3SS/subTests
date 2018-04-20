@@ -333,6 +333,8 @@ midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manua
 midterm2.responses.tsv: pulldir/m2disk/BIOLOGY3SS323MAR2018.dlm
 	$(cat)
 
+final.responses.tsv: pulldir/fdisk/BIOLOGY3SS319APR2018.dlm
+
 ## Student scores from scantron ofice
 ## Use WebCT file for scores instead of rounded proportions
 Ignore += midterm1.office.csv midterm2.office.csv
@@ -349,6 +351,7 @@ midterm2.scores.Rout: midterm2.responses.tsv midterm2.ssv midterm2.orders scores
 
 Sources += midterm2p.ssv
 ### Correcting an answer (D'oh!)
+### Avoid doing it this way; should be able to update the .ssv made from the test
 midterm2p.scores.Rout: midterm2.responses.tsv midterm2p.ssv midterm2.orders scores.R
 	$(run-R)
 
