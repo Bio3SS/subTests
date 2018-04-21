@@ -62,14 +62,7 @@ assign/%:
 ## and to use Grading_scripts to keep grade files that we might want to diff
 
 ## Grading has poll everywhere stuff
-Sources += Grading
-mdirs += Grading
-Grading:
-	git submodule add -b master https://github.com/Bio3SS/$@
-
-Grading/%: 
-	$(MAKE) Grading
-	$(makethere)
+## It used to be a submodule of Tests, but I'm trying to reverse that
 
 ##################################################################
 
@@ -175,6 +168,7 @@ final.%.ssv: final.%.test key.pl
 	$(PUSH)
 
 # Make a special answer key for scantron processing
+# To allow multiple answers, use KEY in the .bank file
 Ignore += *.sc.csv
 %.sc.csv: %.ssv scantron.pl
 	$(PUSH)
@@ -331,6 +325,8 @@ midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manua
 midterm2.responses.tsv: pulldir/m2disk/BIOLOGY3SS323MAR2018.dlm
 	$(cat)
 
+final.responses.tsv: pulldir/fdisk/BIOLOGY3SS319APR2018.dlm
+
 ## Student scores from scantron ofice
 ## Use WebCT file for scores instead of rounded proportions
 Ignore += midterm1.office.csv midterm2.office.csv
@@ -347,6 +343,7 @@ midterm2.scores.Rout: midterm2.responses.tsv midterm2.ssv midterm2.orders scores
 
 Sources += midterm2p.ssv
 ### Correcting an answer (D'oh!)
+### Avoid doing it this way; should be able to update the .ssv made from the test
 midterm2p.scores.Rout: midterm2.responses.tsv midterm2p.ssv midterm2.orders scores.R
 	$(run-R)
 
@@ -413,12 +410,14 @@ midterm2.avenue.Rout.csv: avenue2.R
 ## Not clear why I'm keeping different tsvs in pulldir, but it's not hurting much.
 
 ## Drops are people marked as not matching by the Avenue import
+## Working on obsoleting this in Grading
 Ignore += marks.tsv
 marks.tsv: pulldir/marks3.tsv zero.pl
 	$(PUSH)
 TAmarks.Rout: marks.tsv pulldir/drops.csv TAmarks.R
 TAmarks.Rout.csv: TAmarks.R
 
+## Not clear if Avenue interprets "-" correctly (or else sets to 0)
 Sources += na_fake.pl
 Ignore += TAmarks.avenue.csv
 TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
