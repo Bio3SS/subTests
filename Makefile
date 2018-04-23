@@ -1,5 +1,6 @@
 
 ## Todo: make private (bitbucket) repo for mark tracking
+## Simplify this repo (too-too many submodules, tracked too automatically)
 
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
@@ -301,6 +302,8 @@ Ignore += *.rub.*
 ######################################################################
 
 ###### Marking ######
+
+### Deprecate! Move to Grading
 
 Sources += $(wildcard *.R)
 
