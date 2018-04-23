@@ -1,5 +1,6 @@
 
 ## Todo: make private (bitbucket) repo for mark tracking
+## Simplify this repo (too-too many submodules, tracked too automatically)
 
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
@@ -169,6 +170,7 @@ final.%.ssv: final.%.test key.pl
 
 # Make a special answer key for scantron processing
 # To allow multiple answers, use KEY in the .bank file
+# Does not work yet for self-scoring
 Ignore += *.sc.csv
 %.sc.csv: %.ssv scantron.pl
 	$(PUSH)
@@ -301,6 +303,8 @@ Ignore += *.rub.*
 ######################################################################
 
 ###### Marking ######
+
+### Deprecate! Move to Grading
 
 Sources += $(wildcard *.R)
 
