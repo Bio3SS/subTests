@@ -323,7 +323,7 @@ pulldir/%: pulldir
 ## 	Did I actually do that or not? -- No.
 ## Add manual coding (unreadable) scantron
 Ignore += *.responses.tsv
-midterm1.responses.tsv: pulldir/m1disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
+midterm1.responses.tsv: pulldir/midterm1_disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
 	$(cat)
 
 midterm2.responses.tsv: pulldir/m2disk/BIOLOGY3SS323MAR2018.dlm
