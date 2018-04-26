@@ -370,6 +370,7 @@ Sources += $(wildcard midterm.patch.csv)
 %.patch.Rout: %.scorecomp.Rout nullpatch.R
 	$(run-R)
 
+## Crazy correction code (no longer needed)
 midterm2.patch.Rout: midterm2.scorecomp.Rout.envir midterm2p.scores.Rout.envir addCorrection.R
 	$(run-R)
 
