@@ -326,7 +326,7 @@ Ignore += *.responses.tsv
 midterm1.responses.tsv: pulldir/midterm1_disk/BIOLOGY3SS315FEB2018.dlm pulldir/m1.manual.tsv
 	$(cat)
 
-midterm2.responses.tsv: pulldir/m2disk/BIOLOGY3SS323MAR2018.dlm
+midterm2.responses.tsv: pulldir/midterm2_disk/BIOLOGY3SS323MAR2018.dlm
 	$(cat)
 
 final.responses.tsv: pulldir/fdisk/BIOLOGY3SS319APR2018.dlm
@@ -336,7 +336,7 @@ final.responses.tsv: pulldir/fdisk/BIOLOGY3SS319APR2018.dlm
 Ignore += midterm1.office.csv midterm2.office.csv
 
 midterm2.office.csv:
-midterm%.office.csv: pulldir/m%disk/StudentScoresWebCT.csv Makefile
+midterm%.office.csv: pulldir/midterm%_disk/StudentScoresWebCT.csv Makefile
 	perl -ne 'print if /^[a-z0-9]*@/' $< > $@
 
 ## Re-score here (gives us control over version errors)
