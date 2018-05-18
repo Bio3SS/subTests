@@ -123,6 +123,7 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 final.1.test.pdf: final.formulas
 final.test.pdf: final.formulas
 final.key.pdf: final.formulas
+final.5.final.pdf: final.formulas
 
 ## %.bank.test: %.bank null.tmp bank.select.fmt $(ms)/talk/lect.pl
 ##	$(PUSH)
@@ -499,6 +500,7 @@ midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midte
 Ignore += $(wildcard Bio_3SS3*.pdf) 
 Ignore += $(wildcard final*final.pdf) 
 final_ship: Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf ;
+defer: Bio_3SS3_C01_V5.pdf ;
 
 Bio_3SS3_C01_V%.pdf: final.%.final.pdf
 	$(forcelink)
