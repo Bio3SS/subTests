@@ -11,19 +11,6 @@
 
 ##################################################################
 
-## Notes
-
-# Crib
-
-Crib = ~/hybrid/3SS/content/Makefile
-Crib = ~/hybrid/3SS/content/
-
-.PRECIOUS: %.pl
-%.pl:
-	$(CP) $(Crib)/$@ .
-
-######################################################################
-
 # make files
 
 Sources = Makefile .ignore README.md sub.mk LICENSE.md
