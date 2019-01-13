@@ -105,6 +105,11 @@ Ignore += *.fmt
 Sources += $(wildcard *.formulas)
 Sources += $(wildcard formula*.tex)
 
+## Could NOT make this work with -e!
+Sources += archive.pl
+archiveQuestions:
+	perl -pi -f archive.pl material/*.bank
+
 Ignore += midterm1.bank
 midterm1.bank: midterm1.formulas material/linear.bank material/nonlinear.bank material/structure.bank
 	$(cat)
