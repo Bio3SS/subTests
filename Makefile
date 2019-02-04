@@ -4,6 +4,7 @@
 
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
+## Marking machinery deprecated now
 ## Give this some thought
 
 ### Hooks for the editor to set the default target
@@ -45,6 +46,7 @@ material/%:
 ## This submodule seems like a legacy. What is used?
 ## Probably some diagrams and stuff
 ## How does it differ from material (both are private)?
+## Try to deprecate, but don't panic
 Sources += assign
 mdirs += assign
 assign:
