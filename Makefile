@@ -43,18 +43,14 @@ material/%:
 	$(MAKE) material
 	$(makethere)
 
-## This submodule seems like a legacy. What is used?
-## Probably some diagrams and stuff
-## How does it differ from material (both are private)?
-## Try to deprecate, but don't panic
-Sources += assign
-mdirs += assign
+## Make assign into a resting subclone! Don't need to all it. Ever.
+## Try not to use it, not to make there, etc. 2019 Feb 04 (Mon)
+resting += assign
 assign:
-	git submodule add -b master https://github.com/Bio3SS/Assignments $@
+	git clone https://github.com/Bio3SS/Assignments $@
+	cd assign && $(MAKE) Makefile && $(MAKE) Makefile
 
-assign/%: 
-	$(MAKE) assign
-	$(makethere)
+## assign/%: ; $(MAKE) assign; $(makethere)
 
 ## There is also a private repo called Grading_scripts (out of date)
 ## and a public successor called Grading
@@ -63,6 +59,7 @@ assign/%:
 
 ## Grading has poll everywhere stuff
 ## It used to be a submodule of Tests, but I'm trying to reverse that
+## Or something
 
 ##################################################################
 
@@ -514,6 +511,8 @@ Bio_3SS3_C01_V%.pdf: final.%.final.pdf
 ## "Forgot" to re-screenshot (uploaded extra files)
 
 ######################################################################
+
+Ignore += $(resting)
 
 -include $(ms)/texdeps.mk
 -include $(ms)/git.mk
