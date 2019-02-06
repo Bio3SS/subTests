@@ -32,6 +32,7 @@ $(ms)/Makefile:
 
 ## Submodules
 
+## material is actually a good candidate for a submodule
 ## Test material is here
 Sources += material
 mdirs += material
@@ -48,7 +49,7 @@ material/%:
 ## Immediately bailed on this plan!!! 2019 Feb 04 (Mon)
 ## Resuscitated assign as a clone and made:
 ## pullup; pullup; rmsync; rmsync; all!
-resting += assign
+clonedirs += assign
 assign:
 	git clone https://github.com/Bio3SS/Assignments $@
 	cd assign && $(MAKE) Makefile && $(MAKE) Makefile
