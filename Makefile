@@ -45,12 +45,15 @@ material/%:
 
 ## Make assign into a resting subclone! Don't need to all it. Ever.
 ## Try not to use it, not to make there, etc. 2019 Feb 04 (Mon)
+## Immediately bailed on this plan!!! 2019 Feb 04 (Mon)
+## Resuscitated assign as a clone and made:
+## pullup; pullup; rmsync; rmsync; all!
 resting += assign
 assign:
 	git clone https://github.com/Bio3SS/Assignments $@
 	cd assign && $(MAKE) Makefile && $(MAKE) Makefile
 
-## assign/%: ; $(MAKE) assign; $(makethere)
+assign/%: ; $(MAKE) assign; $(makethere)
 
 ## There is also a private repo called Grading_scripts (out of date)
 ## and a public successor called Grading
