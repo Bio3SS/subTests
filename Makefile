@@ -31,7 +31,9 @@ $(ms)/Makefile:
 
 ## Submodules
 
-## Test material is here
+## material is actually a good candidate for a submodule
+## Remake tests and keys by setting the clock back from here. I guess.
+## Why did it apparently not sync from school on Tue??
 Sources += material
 mdirs += material
 
