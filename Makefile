@@ -1,4 +1,3 @@
-
 ## Todo: make private (bitbucket) repo for mark tracking
 ## Simplify this repo (too-too many submodules, tracked too automatically)
 
@@ -48,7 +47,7 @@ material/%:
 ## Immediately bailed on this plan!!! 2019 Feb 04 (Mon)
 ## Resuscitated assign as a clone and made:
 ## pullup; pullup; rmsync; rmsync; all!
-resting += assign
+clonedirs += assign
 assign:
 	git clone https://github.com/Bio3SS/Assignments $@
 	cd assign && $(MAKE) Makefile && $(MAKE) Makefile
@@ -159,7 +158,6 @@ final.%.test: final.mc scramble.pl
 
 final.test: final.mc
 	$(copy)
-
  
 ######################################################################
 
@@ -483,6 +481,7 @@ final.%.tmp: final.tmp examno.pl
 ## White, orchid, green, salmon 
 
 midterm1.3.test.pdf:
+midterm1.3.key.pdf:
 
 midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
 
