@@ -166,6 +166,7 @@ final.test: final.mc
 # Test key
 .PRECIOUS: %.ssv
 
+# midterm1.1.ssv:
 Ignore += *.ssv
 midterm%.ssv: midterm%.mc key.pl
 	$(PUSH)
@@ -176,6 +177,7 @@ final.%.ssv: final.%.test key.pl
 # Make a special answer key for scantron processing
 # To allow multiple answers, use KEY in the .bank file
 # Does not work yet for self-scoring
+# midterm1.1.sc.csv:
 Ignore += *.sc.csv
 %.sc.csv: %.ssv scantron.pl
 	$(PUSH)
@@ -450,13 +452,14 @@ mdirs += web
 
 ######################################################################
 
-midterm2.1.exam.pdf:
+midterm1.1.exam.pdf:
 
 ## Print versions and printing
 
 ## Cover pages handled differently
 ## This is because the final cover needs to know the number of pages
 ## so it's part of the main tex document
+## (midterms share midterm.front.tex)
 Sources += $(wildcard *.front.tex)
 Sources += scantron.jpg
 
@@ -486,6 +489,7 @@ midterm1.3.test.pdf:
 midterm1.3.key.pdf:
 
 midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
+	/bin/cp -f $^ ~/Downloads
 
 midterm1_post: midterm1.1.test.pdf.pd midterm1.2.test.pdf.pd midterm1.3.test.pdf.pd midterm1.4.test.pdf.pd midterm1.5.test.pdf.pd
 
