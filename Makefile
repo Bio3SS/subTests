@@ -443,12 +443,7 @@ TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
 
 ######################################################################
 
-pushdir = web/materials
-
-web:
-	git submodule add -b master https://github.com/Bio3SS/Bio3SS.github.io.git $@
-
-mdirs += web
+pushdir = ../web/materials
 
 ######################################################################
 

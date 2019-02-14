@@ -6,7 +6,3 @@
 	path = material
 	url = https://github.com/Bio3SS/Evaluation_materials
 	branch = master
-[submodule "web"]
-	path = web
-	url = https://github.com/Bio3SS/Bio3SS.github.io.git
-	branch = master
