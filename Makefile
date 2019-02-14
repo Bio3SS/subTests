@@ -485,7 +485,7 @@ final.%.tmp: final.tmp examno.pl
 
 ## White, orchid, green, salmon 
 
-midterm1.3.test.pdf:
+midterm1.5.exam.pdf:
 midterm1.3.key.pdf:
 
 midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
