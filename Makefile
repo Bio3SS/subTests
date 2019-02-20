@@ -443,12 +443,7 @@ TAmarks.avenue.csv: TAmarks.Rout.csv na_fake.pl
 
 ######################################################################
 
-pushdir = web/materials
-
-web:
-	git submodule add -b master https://github.com/Bio3SS/Bio3SS.github.io.git $@
-
-mdirs += web
+pushdir = ../web/materials
 
 ######################################################################
 
@@ -485,13 +480,15 @@ final.%.tmp: final.tmp examno.pl
 
 ## White, orchid, green, salmon 
 
-midterm1.3.test.pdf:
-midterm1.3.key.pdf:
+midterm1.5.exam.pdf:
+## midterm1.3.key.pdf: material/linear.short material/nonlinear.short
 
 midterm1_ship: midterm1.1.exam.pdf midterm1.2.exam.pdf midterm1.3.exam.pdf midterm1.4.exam.pdf midterm1.5.exam.pdf
 	/bin/cp -f $^ ~/Downloads
 
+## Push tests and keys with the same command
 midterm1_post: midterm1.1.test.pdf.pd midterm1.2.test.pdf.pd midterm1.3.test.pdf.pd midterm1.4.test.pdf.pd midterm1.5.test.pdf.pd
+midterm1_post: midterm1.1.key.pdf.pd midterm1.2.key.pdf.pd midterm1.3.key.pdf.pd midterm1.4.key.pdf.pd midterm1.5.key.pdf.pd
 
 midterm1.rub.zip: midterm1.1.rub.pdf midterm1.2.rub.pdf midterm1.3.rub.pdf midterm1.4.rub.pdf midterm1.5.rub.pdf
 	$(ZIP)
