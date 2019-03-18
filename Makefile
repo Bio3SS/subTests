@@ -289,7 +289,7 @@ material.now: %.now: $$(wildcard $$*/*)
 	@echo $^
 
 midterm2.test.pdf: material/structure.bank
-midterm2.3.test.pdf: material/life_history.bank
+midterm2.5.test.pdf: material/life_history.bank
 midterm2.3.key.pdf: material/life_history.bank
 
 ## Latex outputs
