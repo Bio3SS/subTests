@@ -3,8 +3,6 @@
 
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
-## Marking machinery deprecated now
-## Give this some thought
 
 ### Hooks for the editor to set the default target
 -include target.mk
