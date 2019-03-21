@@ -289,6 +289,7 @@ material.now: %.now: $$(wildcard $$*/*)
 midterm2.test.pdf: material/structure.bank
 midterm2.5.test.pdf: material/life_history.bank
 midterm2.3.key.pdf: material/life_history.bank
+midterm2.3.rub.pdf: material/structure.short
 
 ## Latex outputs
 
