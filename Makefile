@@ -3,8 +3,6 @@
 
 # Tests
 ## Includes test and marking machinery (because both depend on scramble stuff)
-## Marking machinery deprecated now
-## Give this some thought
 
 ### Hooks for the editor to set the default target
 -include target.mk
@@ -288,8 +286,10 @@ Sources += copy.tex
 material.now: %.now: $$(wildcard $$*/*)
 	@echo $^
 
-midterm2.test.pdf: material/life_history.bank
-midterm2.3.test.pdf: material/life_history.bank
+midterm2.test.pdf: material/structure.bank
+midterm2.5.test.pdf: material/life_history.bank
+midterm2.3.rub.pdf: material/structure.short
+midterm2.3.key.pdf: material/structure.short
 
 ## Latex outputs
 
@@ -447,7 +447,7 @@ pushdir = ../web/materials
 
 ######################################################################
 
-midterm1.1.exam.pdf:
+midterm2.1.exam.pdf:
 
 ## Print versions and printing
 
@@ -479,6 +479,7 @@ final.%.tmp: final.tmp examno.pl
 ## account # 206000301032330000
 
 ## White, orchid, green, salmon 
+## Two-sided, stapled
 
 midterm1.5.exam.pdf:
 ## midterm1.3.key.pdf: material/linear.short material/nonlinear.short
@@ -494,6 +495,7 @@ midterm1.rub.zip: midterm1.1.rub.pdf midterm1.2.rub.pdf midterm1.3.rub.pdf midte
 	$(ZIP)
 
 midterm2_ship: midterm2.1.exam.pdf midterm2.2.exam.pdf midterm2.3.exam.pdf midterm2.4.exam.pdf midterm2.5.exam.pdf
+	/bin/cp -f $^ ~/Downloads
 
 midterm2_post: midterm2.1.test.pdf.pd midterm2.2.test.pdf.pd midterm2.3.test.pdf.pd midterm2.4.test.pdf.pd midterm2.5.test.pdf.pd
 
