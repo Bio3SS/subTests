@@ -124,6 +124,7 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 	$(cat)
 
 final.1.test.pdf: final.formulas
+final.1.key.pdf: final.formulas
 final.test.pdf: final.formulas
 final.key.pdf: final.formulas
 final.5.final.pdf: final.formulas
