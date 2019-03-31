@@ -124,6 +124,7 @@ final.bank: final.formulas material/linear.bank material/nonlinear.bank material
 	$(cat)
 
 final.1.test.pdf: final.formulas
+final.1.key.pdf: final.formulas
 final.test.pdf: final.formulas
 final.key.pdf: final.formulas
 final.5.final.pdf: final.formulas
@@ -288,8 +289,8 @@ material.now: %.now: $$(wildcard $$*/*)
 
 midterm2.test.pdf: material/structure.bank
 midterm2.5.test.pdf: material/life_history.bank
-midterm2.3.rub.pdf: material/structure.short
-midterm2.3.key.pdf: material/structure.short
+midterm2.3.key.pdf: material/life_history.bank
+midterm2.4.rub.pdf: material/structure.short
 
 ## Latex outputs
 
