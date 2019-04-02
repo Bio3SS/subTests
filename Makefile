@@ -468,7 +468,7 @@ midterm2.%.exam.pdf: midterm.front.pdf midterm2.%.test.pdf
 	$(pdfcat)
 
 Sources += final.tmp examno.pl final.cover.tex
-final.3.final.pdf: final.tmp 
+## final.3.final.pdf: final.tmp 
 
 final.%.tmp: final.tmp examno.pl
 	$(PUSHSTAR)
@@ -508,8 +508,13 @@ midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midte
 ## Search email for Exam Upload Instructions (or notice when email arrives and do something)
 Ignore += $(wildcard Bio_3SS3*.pdf) 
 Ignore += $(wildcard final*final.pdf) 
-final_ship: Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf ;
+final_ship: final.1.final.pdf final.2.final.pdf final.2.final.pdf final.4.final.pdf ;
+final_upload: final_ship Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf
+	/bin/cp Bio_3SS3_C01*.pdf ~/Downloads
 defer: Bio_3SS3_C01_V5.pdf ;
+
+## Finalizing
+## final.1.final.pdf:
 
 Bio_3SS3_C01_V%.pdf: final.%.final.pdf
 	$(forcelink)
