@@ -9,7 +9,7 @@
 \newcommand{\blank}{\rule{5em}{0.4pt}}
 
 \pagestyle{myheadings}
-\newcommand{\myhead}{\small \bf Bio 3SS3\hfill Version \testver\hfill McMaster University Final Examination}
+\newcommand{\myhead}{\small \bf Bio 3SS3\hfill \testver\hfill McMaster University Final Examination}
 \newcommand{\myfoot}{\hfill Page \thepage\ of \pageref{LastPage}}
 
 \makeatletter
@@ -22,7 +22,7 @@
 \newcounter{question}
 \newcounter{mc}[question]
 \newcounter{qpart}[question]
-\renewcommand{\testver}{VVV}
+\newcommand{\testver}{XXX} %% This should be replaced in scramble.pl
 % \setcounter{page}{1}
  
 \begin{document}

@@ -123,7 +123,7 @@ Ignore += final.bank
 final.bank: final.formulas material/linear.bank material/nonlinear.bank material/structure.bank material/life_history.bank material/comp.bank material/pred.bank material/disease.bank
 	$(cat)
 
-final.1.test.pdf: final.formulas
+final.5.test.pdf: final.formulas
 final.1.key.pdf: final.formulas
 final.test.pdf: final.formulas
 final.key.pdf: final.formulas

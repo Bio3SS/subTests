@@ -27,7 +27,7 @@
 \newcounter{qpart}[question]
  
 \begin{document}
-\newcommand{\testver}{Q}
+\newcommand{\testver}{VVV}
 
 \input{lect/pop.tex}
 \input{lect/dfpar.tex}
