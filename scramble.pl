@@ -5,7 +5,7 @@ srand($version);
 my $vnames = "12345678";
 my $V = substr($vnames, $version-1, 1);
 $V = "version $V" unless $V==5;
-$V = "UNFERRED" if $V==5;
+$V = "DEFERRED" if $V==5;
 print "PRE \\renewcommand{\\testver}{$V}\n\n";
 
 undef $/;

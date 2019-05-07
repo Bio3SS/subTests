@@ -371,6 +371,11 @@ midterm1.%.exam.pdf: midterm.front.pdf midterm1.%.test.pdf
 midterm2.%.exam.pdf: midterm.front.pdf midterm2.%.test.pdf
 	$(pdfcat)
 
+### we handle testver twice (redundant code)
+### examno.pl does something for the cover page on the final
+### midterms (and final body?) are handled by scramble.pl
+### Better way might be separate .tmp for the tests, just like
+### we have versioned .tmp for the exam
 Sources += final.tmp examno.pl final.cover.tex
 ## final.3.final.pdf: final.tmp 
 
@@ -410,12 +415,16 @@ midterm2.rub.zip: midterm2.1.rub.pdf midterm2.2.rub.pdf midterm2.3.rub.pdf midte
 	$(ZIP)
 
 ## Search email for Exam Upload Instructions (or notice when email arrives and do something)
+# http://macdrive.mcmaster.ca/u/d/4ce0683ccb1f49cca555/ (2019 deferred)
+# B5%m3dG6
+
 Ignore += $(wildcard Bio_3SS3*.pdf) 
 Ignore += $(wildcard final*final.pdf) 
 final_ship: final.1.final.pdf final.2.final.pdf final.2.final.pdf final.4.final.pdf ;
 final_upload: final_ship Bio_3SS3_C01_V1.pdf Bio_3SS3_C01_V2.pdf Bio_3SS3_C01_V3.pdf Bio_3SS3_C01_V4.pdf
 	/bin/cp Bio_3SS3_C01*.pdf ~/Downloads
-defer: Bio_3SS3_C01_V5.pdf ;
+defer: Bio_3SS3_C01_V5.pdf
+	/bin/cp $< ~/Downloads
 
 ## Finalizing
 ## final.1.final.pdf:
